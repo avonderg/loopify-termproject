@@ -1,0 +1,5 @@
+INPUT
+load_db_backend data/recommendationdata/sql/zoo.sqlite3
+OUTPUT
+Successfully loaded database.
+END

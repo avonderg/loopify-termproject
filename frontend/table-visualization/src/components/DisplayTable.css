@@ -1,0 +1,21 @@
+
+.border {
+  border:0.7px dotted white;
+  width: max-content;
+  padding: 0.5%;
+  /* min-width: 100%; */
+  /* min-width: 100%; */
+  overflow: hidden;
+text-overflow: ellipsis;
+ white-space: nowrap;
+} 
+
+td {
+    min-width: 3rem;
+}
+
+table {
+    /* min-width: 80%;  */
+    table-layout: auto;
+    width: 100%
+}

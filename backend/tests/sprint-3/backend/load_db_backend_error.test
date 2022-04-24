@@ -1,0 +1,5 @@
+INPUT
+load_db_backend
+OUTPUT
+ERROR: file name is null or empty"
+END
