@@ -56,20 +56,11 @@ export default function TableViz() {
       },
     });
 
-<<<<<<< HEAD
     // fetches the table data for the loaded sql database and table specified by dropdown from backend
     let tableData: Table = await res.json();
     setTableData(tableData);
     return tableData;
   }
-=======
-  // fetches the table data for the loaded sql database and table specified by dropdown from backend
-  let tableData : Table = await res.json();
-      console.log(tableData)
-      setTableData(tableData)
-      return tableData;
-}
->>>>>>> kanban
 
   //html framework to be rendered
   return (
