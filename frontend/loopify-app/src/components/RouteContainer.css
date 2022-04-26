@@ -4,14 +4,14 @@
 
 .RouteContainer h2 {
   font-family: Geneva;
-  font-size: 40px;
+  font-size: 50px;
   transform: scale(1,.9);
-  font-weight: bold;
+  margin: 0px;
 }
 
 .RouteContainer label {
   font-family: Geneva;
-  font-size: 20px;
+  font-size: 16px;
   transform: scale(1,.9);
   font-weight: lighter;
 }
@@ -20,7 +20,7 @@
   background-color: #47746a;
   border: none;
   color: #fff;
-  padding: 5px 12px;
+  padding: 7px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

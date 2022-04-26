@@ -2,6 +2,7 @@ import React from 'react';
 import { GoogleMap, useJsApiLoader , LoadScript} from '@react-google-maps/api';
 import GoogleMapReact, {BootstrapURLKeys} from 'google-map-react';
 import Path from "./Path";
+import mapExample from "/Users/kleoku/term-project-avonderg-bpiekarz-jurrutic-kku2-sgundotr/frontend/loopify-app/src/images/figmaMap.png"
 
 // https://www.npmjs.com/package/google-map-react
 // --> google-map-react
@@ -35,7 +36,7 @@ function MapContainer() {
     //   setMap(null)
     // }, [])
 
-    const apiKey = "AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q"
+    const apiKey = "AIzaSyBl5KAwLFMirggDCvul35kcVDtFeIdRIe8"
 
     const getLocation = () => {
         let lat = 41.8268;
@@ -54,23 +55,15 @@ function MapContainer() {
 
     return (
         <div>
-            <p>
-                Latitude:
-                {getLocation().lat}
-                <br/>
-                Longitude:
-                {getLocation().lng}
-            </p>
-
-            <div style={{height: '30vh', width: '100%'}}>
-                <h3>
-                    test map
-                </h3>
-                <GoogleMapReact
-                    bootstrapURLKeys={{key: apiKey}}
-                    defaultCenter={getLocation()}
-                    defaultZoom={zoom}
-                />
+            <div style={{height: '400px', width: '100%'}}>
+                <div className="Map">
+                    <img src= {mapExample} style={{width:'500px', height:'auto', margin: '50px', overflow: 'hidden'}}/>
+                </div>
+                {/*<GoogleMapReact*/}
+                {/*    bootstrapURLKeys={{key: apiKey}}*/}
+                {/*    defaultCenter={getLocation()}*/}
+                {/*    defaultZoom={zoom}*/}
+                {/*/>*/}
             </div>
         </div>
     )
