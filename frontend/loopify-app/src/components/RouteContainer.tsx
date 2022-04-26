@@ -1,12 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './RouteContainer.css'
 import MapContainer from "./MapContainer";
 
 
 function RouteContainer() {
 
+    const [lat, setLat] = useState(41.8268)
+    const [lng, setLng] = useState(71.4025)
+
+
     function sendMileage(miles : string) {
 
+    }
+
+    function getCurLoc() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLat(position.coords.latitude);
+                setLng(position.coords.longitude);
+            })
+        }
     }
 
     return (
@@ -16,15 +29,18 @@ function RouteContainer() {
             </h2>
 
             <label> base: </label>
-            <button> use my location </button> <br/>
+            <button onClick={getCurLoc}> use my location </button> <br/>
 
             <label> miles: </label>
             <input
-                type="text"
+                type="number"
                 onChange={(e) => sendMileage(e.target.value)}
             />
 
-            <MapContainer/>
+            <MapContainer
+                lat = {lat}
+                lng = {lng}
+            />
 
             <div className="Footer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

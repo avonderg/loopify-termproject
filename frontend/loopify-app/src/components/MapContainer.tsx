@@ -13,9 +13,13 @@ import mapExample from "/Users/kleoku/term-project-avonderg-bpiekarz-jurrutic-kk
 // https://developers.google.com/maps/get-started#api-key
 // --> api key
 
+interface MapProps {
+    lat : number;
+    lng : number;
+}
 
 
-function MapContainer() {
+function MapContainer(props:MapProps) {
 
     const zoom = 10;
 

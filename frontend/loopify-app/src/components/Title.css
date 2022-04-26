@@ -12,6 +12,7 @@ path {
 text {
   fill: #47746a;
   font-family: Geneva;
-  font-size: 5rem;
+  font-size: 100px;
   font-weight: bolder;
+  transform: scale(1,.9);
 }
