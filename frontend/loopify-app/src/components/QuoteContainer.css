@@ -1,0 +1,40 @@
+.curved {
+  text-align: center;
+  fill-opacity: 1;
+}
+
+.QuoteContainer path {
+  fill: #fff;
+}
+
+.QuoteContainer h2 {
+  color: #fff;
+  font-family: Geneva;
+  font-size: 3rem;
+  font-weight: lighter;
+  transform: scale(1,.9);
+}
+
+.QuoteContainer p {
+  color: #ebf37b;
+  font-family: Geneva;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  transform: scale(1,.9);
+}
+
+.QuoteContainer button {
+  background-color: #ebf37b;
+  border: none;
+  color: #47746a;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Geneva;
+  font-size: 16px;
+  font-weight: bolder;
+  margin: 4px 2px;
+  border-radius: 25px;
+  transform: scale(1,.9);
+}
