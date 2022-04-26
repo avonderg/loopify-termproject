@@ -15,12 +15,6 @@ function App() {
         <Title/>
         <QuoteContainer/>
         <RouteContainer/>
-        {/*<MapContainer/>*/}
-        {/*<div>*/}
-        {/*    <p>*/}
-        {/*        hello*/}
-        {/*    </p>*/}
-        {/*</div>*/}
     </div>
   );
 }

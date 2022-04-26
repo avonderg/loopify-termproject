@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import './RouteContainer.css'
 import MapContainer from "./MapContainer";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 
 function RouteContainer() {
 
     const [lat, setLat] = useState(41.8268)
     const [lng, setLng] = useState(71.4025)
+    const apiKey = process.env.LOOPIFY_APP_KEY || ""
 
 
     function sendMileage(miles : string) {
@@ -22,25 +24,27 @@ function RouteContainer() {
         }
     }
 
+    const render = (status: Status) => {
+        return <h1>{status}</h1>;
+    };
+
     return (
         <div className="RouteContainer">
-            <h2>
-                find a loop
-            </h2>
+            <h2> find a loop </h2>
 
             <label> base: </label>
             <button onClick={getCurLoc}> use my location </button> <br/>
 
             <label> miles: </label>
-            <input
-                type="number"
-                onChange={(e) => sendMileage(e.target.value)}
-            />
+            <input type="number" onChange={(e) => sendMileage(e.target.value)}/>
 
-            <MapContainer
-                lat = {lat}
-                lng = {lng}
-            />
+            <Wrapper apiKey={"AIzaSyBl5KAwLFMirggDCvul35kcVDtFeIdRIe8"} render={render}>
+                <MapContainer
+                    lat = {lat}
+                    lng = {lng}
+                />
+            </Wrapper>
+
 
             <div className="Footer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
