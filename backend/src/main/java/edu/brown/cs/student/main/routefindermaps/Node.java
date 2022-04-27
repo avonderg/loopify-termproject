@@ -40,7 +40,13 @@ public class Node {
    * @return Node
    */
   public Node getDistanceFrom() {
-    // TODO: figure out how to connect to the Google Maps API
+//    OkHttpClient client = new OkHttpClient().newBuilder()
+//        .build();
+//    Request request = new Request.Builder()
+//        .url("https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=YOUR_API_KEY")
+//        .method("GET", null)
+//        .build();
+//    Response response = client.newCall(request).execute();
     return null;
   }
 }
