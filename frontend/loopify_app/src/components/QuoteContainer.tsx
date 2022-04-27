@@ -7,7 +7,7 @@ function QuoteContainer() {
 
     function scrollToRouteFinder() {
         window.scrollTo({
-            top: document.documentElement.scrollHeight/2.2,
+            top: document.documentElement.scrollHeight/2.1,
             behavior: 'smooth'
         });
     }

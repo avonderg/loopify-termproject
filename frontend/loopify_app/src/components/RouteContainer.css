@@ -42,10 +42,9 @@
   margin: 4px 2px;
   border-radius: 12px;
   transform: scale(1,.9);
-  width: 125px;
+  width: 50px;
 }
 
 .RouteContainer path {
   fill: #47746a;
 }
-
