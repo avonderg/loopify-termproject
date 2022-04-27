@@ -6,20 +6,41 @@ import com.google.maps.GeoApiContext;
  * Class representing a node within a map.
  */
 public class Node {
+  private int row;
+  private int col;
   private double latitude;
   private double longitude;
   private GeoApiContext context;
+
   /**
    * Constructs a new Node object.
    * @param latitude - latitude
    * @param longitude - longitude
    */
-  public Node(double latitude, double longitude) {
+  public Node(double latitude, double longitude, int row, int col) {
+    this.row = row;
+    this.col = col;
     this.latitude = latitude;
     this.longitude = longitude;
     context = new GeoApiContext.Builder()
-            .apiKey("AIza...")
+            .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
             .build();
+  }
+
+  /**
+   * Gets the row index in the grid
+   * @return row index
+   */
+  public int getRow() {
+    return row;
+  }
+
+  /**
+   * Gets the column index in the grid
+   * @return column index
+   */
+  public int getCol() {
+    return col;
   }
 
   /**
@@ -39,10 +60,10 @@ public class Node {
   }
 
   /**
-   * fill in later
-   * @return Node
+   * Gets the Location of the node as a string
+   * @return location string
    */
-  public Node getDistanceFrom(Node otherNode) {
-
+  public String getLocation(){
+    return String.valueOf(longitude) + ", " + String.valueOf(latitude);
   }
 }
