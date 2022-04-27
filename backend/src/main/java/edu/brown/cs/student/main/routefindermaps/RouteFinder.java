@@ -6,4 +6,7 @@ package edu.brown.cs.student.main.routefindermaps;
  */
 public class RouteFinder {
 
+  public RouteFinder(double startLat, double startLong, double distance) {
+
+  }
 }
