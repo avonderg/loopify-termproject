@@ -1,14 +1,14 @@
 package edu.brown.cs.student.main.routefindermaps;
-
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.GeoApiContext;
 
 /**
  * Class representing a node within a map.
  */
 public class Node {
-
   private double latitude;
   private double longitude;
-
+  private GeoApiContext context;
   /**
    * Constructs a new Node object.
    * @param latitude - latitude
@@ -17,6 +17,9 @@ public class Node {
   public Node(double latitude, double longitude) {
     this.latitude = latitude;
     this.longitude = longitude;
+    context = new GeoApiContext.Builder()
+            .apiKey("AIza...")
+            .build();
   }
 
   /**
@@ -39,14 +42,7 @@ public class Node {
    * fill in later
    * @return Node
    */
-  public Node getDistanceFrom() {
-//    OkHttpClient client = new OkHttpClient().newBuilder()
-//        .build();
-//    Request request = new Request.Builder()
-//        .url("https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=YOUR_API_KEY")
-//        .method("GET", null)
-//        .build();
-//    Response response = client.newCall(request).execute();
-    return null;
+  public Node getDistanceFrom(Node otherNode) {
+
   }
 }
