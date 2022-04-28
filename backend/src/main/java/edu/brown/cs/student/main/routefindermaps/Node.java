@@ -28,6 +28,22 @@ public class Node {
   }
 
   /**
+   * Constructs a new Node object that's not in our original node grid: used for the small node objects that we get using
+   * original nodes as waypoints in the distance API. We send these nodes to the frontend to draw the map.
+   * @param latitude - latitude
+   * @param longitude - longitude
+   */
+  public Node(double latitude, double longitude) {
+    this.row = row;
+    this.col = col;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    context = new GeoApiContext.Builder()
+            .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
+            .build();
+  }
+
+  /**
    * Gets the row index in the grid
    * @return row index
    */
