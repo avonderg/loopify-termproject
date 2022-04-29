@@ -13,6 +13,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for parsing DistanceAPI response
+ */
 public class DistanceAPIResponseParser {
 
   /**
@@ -30,6 +33,7 @@ public class DistanceAPIResponseParser {
     return parser.fromJson(endpointsList, Object.class);
   }
 
+  // TODO: delete this? don't think we need anymore
   public static List<Node> parseDrawnPathNodes(Object json) throws JSONException {
     //drawnPathNodes - nodes used for drawing the path on the map
     List<Node> drawnPathNodes = new ArrayList<>();
@@ -48,11 +52,23 @@ public class DistanceAPIResponseParser {
     return drawnPathNodes;
   }
 
+  /**
+   * Given a directionAPIResult, parses the JSON response to extract the latitude and longitude coordiantes of
+   * each step, of each leg, for the routes.
+   * @param directionAPIresult - API response
+   * @return - list of nodes for each turn, to be used when drawing final route
+   */
   public static List<Node> getAllSteps(DirectionsResult directionAPIresult) {
     List<Node> fullTurnNodeList = new ArrayList<>();
     DirectionsRoute[] routes = directionAPIresult.routes;
 
-
+    for (var i=0;i<routes.length;i++) { // loops through all the routes
+      for (var j=0;j<routes[i].legs.length; j++) { // loops through all the legs
+        DirectionsLeg cur = routes[i].legs[j]; // accesses current step
+        LatLng loc = cur.endLocation; // gets END latitude + longitude coordinates of current step
+        fullTurnNodeList.add(new Node(loc.lat, loc.lng)); // creates new node using coordinates and adds to list
+      }
+    };
     return fullTurnNodeList;
   }
 
