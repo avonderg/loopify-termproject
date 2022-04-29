@@ -64,11 +64,14 @@ public class DistanceAPIResponseParser {
 
     for (var i=0;i<routes.length;i++) { // loops through all the routes
       for (var j=0;j<routes[i].legs.length; j++) { // loops through all the legs
-        DirectionsLeg cur = routes[i].legs[j]; // accesses current step
-        LatLng loc = cur.endLocation; // gets END latitude + longitude coordinates of current step
-        fullTurnNodeList.add(new Node(loc.lat, loc.lng)); // creates new node using coordinates and adds to list
+        for (var k=0;k<routes[i].legs[j].steps.length;k++) { // loops through the steps
+          DirectionsStep cur = routes[i].legs[j].steps[k]; // gets current step
+
+          LatLng loc = cur.endLocation; // gets END latitude + longitude coordinates of current step
+          fullTurnNodeList.add(new Node(loc.lat, loc.lng)); // creates new node using coordinates and adds to list
+        }
       }
-    };
+    }
     return fullTurnNodeList;
   }
 
