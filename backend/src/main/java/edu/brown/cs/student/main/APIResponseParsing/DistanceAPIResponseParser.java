@@ -8,6 +8,7 @@ import edu.brown.cs.student.main.routefindermaps.Node;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.google.maps.GeoApiContext;
 
 
 import java.util.ArrayList;
@@ -62,9 +63,9 @@ public class DistanceAPIResponseParser {
     List<Node> fullTurnNodeList = new ArrayList<>();
     DirectionsRoute[] routes = directionAPIresult.routes;
 
-    for (var i=0;i<routes.length;i++) { // loops through all the routes
-      for (var j=0;j<routes[i].legs.length; j++) { // loops through all the legs
-        for (var k=0;k<routes[i].legs[j].steps.length;k++) { // loops through the steps
+    for (int i=0;i<routes.length;i++) { // loops through all the routes
+      for (int j=0;j<routes[i].legs.length; j++) { // loops through all the legs
+        for (int k=0;k<routes[i].legs[j].steps.length;k++) { // loops through the steps
           DirectionsStep cur = routes[i].legs[j].steps[k]; // gets current step
 
           LatLng loc = cur.endLocation; // gets END latitude + longitude coordinates of current step
@@ -74,9 +75,6 @@ public class DistanceAPIResponseParser {
     }
     return fullTurnNodeList;
   }
-
-
-
 
 
 }
