@@ -17,37 +17,42 @@ public class NodeGrid {
   private GeoApiContext context = new GeoApiContext.Builder()
           .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
           .build();
-  // CAUTION: These ratios vary depending on where we are in the earth
   private double longToMiles;
   private double latToMiles = 69;
   private List<Node> nodes = new ArrayList<>();
   private List<List<Double>> nodeDistances;
   // number of nodes per row/column
-  private int nodeNum;
+  private int nodeNum = 5;
 
   /**
    * Constructor
    * @param startLat
-   * @param startLong
+   * @param startLon
    * @param distance
    */
-  public NodeGrid(double startLat, double startLong, double distance, int nodeNum) {
-    this.nodeNum = nodeNum;
-    this.longToMiles = latToMiles * Math.sin(startLat * Math.PI / 180);
+  public NodeGrid(double startLat, double startLon, double distance, int nodeNum) {
+    // For now, we will only deal with 25 nodes
+    this.nodeNum = 5;
+    this.longToMiles = latToMiles * Math.cos(startLat * Math.PI / 180);
     double latDiameter = distance*(1/latToMiles);
     double lonDiameter = distance*(1/longToMiles);
-    double latStep = latDiameter / nodeNum;
-    double lonStep = latDiameter / nodeNum;
-    double lat = startLat - latDiameter/2;
-    double lon = startLong - lonDiameter/2;
-    // Generating the random nodes in the map
+    double latStep = latDiameter / (nodeNum - 1);
+    double lonStep = lonDiameter / (nodeNum - 1);
+    double firstLat = startLat - latDiameter/2;
+    double firstLon = startLon - lonDiameter/2;
+    // Generating the nodes
     for (int i = 0; i < nodeNum; i++){
       for (int j = 0; j < nodeNum; j++){
-        nodes.add(new Node(lat, lon, i, j));
-        lat += latStep;
-        lon += lonStep;
+        nodes.add(new Node(firstLat + j*latStep, firstLon + i*lonStep, i*nodeNum + j));
       }
     }
+  }
+
+  /**
+   * Gets the starting node
+   */
+  public Node getStartNode(){
+    return nodes.get(nodes.size()/2);
   }
 
   /**
@@ -73,8 +78,6 @@ public class NodeGrid {
   }
 
   public double travelDistance(Node node1, Node node2){
-    int node1_i = node1.getRow()*nodeNum + node1.getCol();
-    int node2_i = node2.getRow()*nodeNum + node2.getCol();
-    return nodeDistances.get(node1_i).get(node2_i);
+    return nodeDistances.get(node1.getId()).get(node2.getId());
   }
 }
