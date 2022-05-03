@@ -8,6 +8,7 @@ import com.google.maps.GeoApiContext;
 public class Node {
   private int row;
   private int col;
+
   private double latitude;
   private double longitude;
   private GeoApiContext context;

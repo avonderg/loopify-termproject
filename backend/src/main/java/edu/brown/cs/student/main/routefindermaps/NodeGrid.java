@@ -18,7 +18,7 @@ public class NodeGrid {
           .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
           .build();
   // CAUTION: These ratios vary depending on where we are in the earth
-  private double longToMiles = 69;
+  private double longToMiles;
   private double latToMiles = 69;
   private List<Node> nodes = new ArrayList<>();
   private List<List<Double>> nodeDistances;
@@ -60,6 +60,7 @@ public class NodeGrid {
     }
     DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, locations, locations);
     // TODO: Get distances from the distanceMatReq
+
   }
 
   /**

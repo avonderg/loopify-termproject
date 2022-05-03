@@ -10,14 +10,14 @@ import java.util.List;
  * user to follow.
  */
 public class RouteFinder {
-  private final int nodeNum = 100; // number of nodes per row / column
+  private final int nodeNum = 5; // number of nodes per row / column
   Node start;
   NodeGrid nodes;
   double distance;
 
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
-    this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
+    //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
     nodes = new NodeGrid(startLat, startLong, distance, nodeNum);
   }
 
