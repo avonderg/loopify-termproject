@@ -33,6 +33,7 @@ public class NodeGrid {
    */
   public NodeGrid(double startLat, double startLong, double distance, int nodeNum) {
     this.nodeNum = nodeNum;
+    this.longToMiles = latToMiles * Math.sin(startLat * Math.PI / 180);
     double latDiameter = distance*(1/latToMiles);
     double lonDiameter = distance*(1/longToMiles);
     double latStep = latDiameter / nodeNum;
