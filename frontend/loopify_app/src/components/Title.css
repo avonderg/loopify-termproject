@@ -11,8 +11,8 @@ path {
 
 text {
   fill: #47746a;
-  font-family: Geneva;
+  font-family: TS-Block, sans-serif;
   font-size: 100px;
   font-weight: bolder;
-  transform: scale(1,.9);
+  transform: scale(1,.5);
 }
