@@ -3,10 +3,17 @@ package edu.brown.cs.student.main.routefindermaps;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.Distance;
 import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.DistanceMatrixElement;
+import com.google.maps.model.DistanceMatrixRow;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class representing a graph of nodes.
@@ -52,14 +59,36 @@ public class NodeGrid {
   /**
    * Calculate travel distances
    */
-  public void calculateDistances(){
+  public void calculateDistances() throws IOException, InterruptedException, ApiException {
     int totalNum = nodeNum*nodeNum;
     String[] locations = new String[totalNum];
     for (int i = 0; i < totalNum; i++){
       locations[i] = (nodes.get(i).getLocation());
     }
+    // assuming I have the origins and locations send over by Jose
     DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, locations, locations);
     // TODO: Get distances from the distanceMatReq
+    // if i pass in 25 origins and 25 destinations, API will return 625 distances
+    DistanceMatrix matrix = distanceMatReq.await();
+    DistanceMatrixRow[] rows = matrix.rows; // gets rows from distance matrix
+    Double[][] distMat = new Double[25][25]; // 25 by 25 matrix
+
+      for (int i = 0; i < rows.length; i++) { // loops through the rows
+        DistanceMatrixElement[] elements = rows[i].elements; // gets elements array
+        for (int j = 0; j < elements.length; j++) { // loops through the elements
+          if (elements[j].status.equals("OK")) { // Error checking to prevent program from crashing
+              distMat[i][j] = Double.valueOf(elements[j].distance.inMeters); // gets distance in meters
+          }
+          else { // if an element was unable to be grabbed -- given distance of -1
+              distMat[i][j] = -1.0;
+          }
+        }
+      }
+
+      // converts array to list of lists
+      nodeDistances = Arrays.stream(distMat)
+              .map(Arrays::asList)
+              .collect(Collectors.toList());
   }
 
   /**
