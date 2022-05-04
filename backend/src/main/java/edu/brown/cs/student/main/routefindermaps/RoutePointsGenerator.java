@@ -3,10 +3,7 @@ package edu.brown.cs.student.main.routefindermaps;
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.GeocodedWaypoint;
-import com.google.maps.model.LatLng;
-import com.google.maps.model.TravelMode;
+import com.google.maps.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +22,7 @@ public class RoutePointsGenerator {
    * @param nodeList
    * @return
    */
-  public GeocodedWaypoint[] getRoutePoints(List<Node> nodeList) {
+  public List<LatLng> getRoutePoints(List<Node> nodeList) {
     GeoApiContext context = new GeoApiContext.Builder()
         .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
         .build();
@@ -45,7 +42,7 @@ public class RoutePointsGenerator {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return result.geocodedWaypoints;
+    return result.routes[0].overviewPolyline.decodePath();
 
   }
 

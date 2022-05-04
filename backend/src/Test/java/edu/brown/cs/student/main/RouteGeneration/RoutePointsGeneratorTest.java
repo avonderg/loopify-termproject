@@ -1,4 +1,5 @@
 package edu.brown.cs.student.main.RouteGeneration;
+import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.GeocodedWaypoint;
 import com.google.maps.model.LatLng;
 import edu.brown.cs.student.main.routefindermaps.Node;
@@ -51,10 +52,11 @@ public class RoutePointsGeneratorTest {
 //    LatLng point2 = new LatLng(31.19, 32.47);
 //    LatLng point3 = new LatLng(31.25, 32.50);
 
-    GeocodedWaypoint[] waypointsArr = new RoutePointsGenerator().getRoutePoints(nodeList);
+    List<LatLng> decodedPolyline = new RoutePointsGenerator().getRoutePoints(nodeList);
 
+    System.out.println(decodedPolyline);
     //assert that the API has returned a path with a waypoint array bigger than the
     //number of intermediate nodes our algorithm is based on
-    assert(waypointsArr.length > 3);
+    assert(decodedPolyline.size() > 3);
   }
 }
