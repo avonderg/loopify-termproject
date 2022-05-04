@@ -60,13 +60,16 @@ public class NodeGrid {
    * Calculate travel distances
    */
   public void calculateDistances() throws IOException, InterruptedException, ApiException {
-    int totalNum = nodeNum*nodeNum;
-    String[] locations = new String[totalNum];
-    for (int i = 0; i < totalNum; i++){
-      locations[i] = (nodes.get(i).getLocation());
-    }
-    // assuming I have the origins and locations send over by Jose
-    DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, locations, locations);
+//    int totalNum = nodeNum*nodeNum;
+//    String[] locations = new String[totalNum];
+//    for (int i = 0; i < totalNum; i++){
+//      locations[i] = (nodes.get(i).getLocation());
+//    }
+    String[] origins = {"120 W Randolph St, Chicago, IL 60602, USA", "204 S Clark St, Chicago, IL 60604, USA", "629 N Desplaines St, Chicago, IL 60661, USA"};
+    String[] dests = {"233 S Wacker Dr, Chicago, IL 60606, USA", "101 S Wacker Dr, Chicago, IL 60606, USA", "25 S Wacker Dr, Chicago, IL 60606, USA\""};
+
+    // assuming I have the origins and destinations send over by Jose
+    DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, origins, dests);
     // TODO: Get distances from the distanceMatReq
     // if i pass in 25 origins and 25 destinations, API will return 625 distances
     DistanceMatrix matrix = distanceMatReq.await();
@@ -76,11 +79,11 @@ public class NodeGrid {
       for (int i = 0; i < rows.length; i++) { // loops through the rows
         DistanceMatrixElement[] elements = rows[i].elements; // gets elements array
         for (int j = 0; j < elements.length; j++) { // loops through the elements
-          if (elements[j].status.equals("OK")) { // Error checking to prevent program from crashing
-              distMat[i][j] = Double.valueOf(elements[j].distance.inMeters); // gets distance in meters
+          if (elements[j].status.name() == "OK") { // Error checking to prevent program from crashing
+            distMat[i][j] = Double.valueOf(elements[j].distance.inMeters); // gets distance in meters
           }
           else { // if an element was unable to be grabbed -- given distance of -1
-              distMat[i][j] = -1.0;
+            distMat[i][j] = -1.0;
           }
         }
       }
