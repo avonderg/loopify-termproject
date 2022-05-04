@@ -67,8 +67,8 @@ public class NodeGrid {
       locations[i] = (nodes.get(i).getLocation());
     }
     // TODO: Jose generate 25 start and dest nodes to be passed into this constructor
-    DistanceMatrixGenerator generateDistances = new DistanceMatrixGenerator(locations,locations);
-    nodeDistances = generateDistances.generateDistances(); // generates distances
+    DistanceMatrixGenerator dist = new DistanceMatrixGenerator(locations,locations);
+    nodeDistances = dist.generateDistances(); // generates distances
   }
 
 
