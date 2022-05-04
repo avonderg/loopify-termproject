@@ -27,10 +27,6 @@ public class RoutePointsGeneratorTest {
     Node node3 = new Node(41.825, 71.425);
     List<Node> nodeList = Arrays.asList(node0, node1, node2, node3, node0);
 
-//    LatLng point1 = new LatLng(31.25, 32.50);
-//    LatLng point2 = new LatLng(31.19, 32.47);
-//    LatLng point3 = new LatLng(31.25, 32.50);
-
     LatLng[] waypointsArr = new RoutePointsGenerator().getWaypoints(nodeList);
 
     //1st element in the
@@ -45,10 +41,10 @@ public class RoutePointsGeneratorTest {
    */
   @Test
   public void getRoutePoints() {
-    Node node0 = new Node(41.8240, 71.412);
-    Node node1 = new Node(41.830, 71.422);
-    Node node2 = new Node(41.837, 71.430);
-    Node node3 = new Node(41.825, 71.425);
+    Node node0 = new Node(41.82366448384468, -71.39824717161981);
+    Node node1 = new Node(41.828525341624996, -71.40105812663823);
+    Node node2 = new Node(41.835112494074544, -71.40206663721735);
+    Node node3 = new Node(41.8298364308529, -71.3875183356717);
     List<Node> nodeList = Arrays.asList(node0, node1, node2, node3, node0);
 
 //    LatLng point1 = new LatLng(31.25, 32.50);
@@ -57,7 +53,8 @@ public class RoutePointsGeneratorTest {
 
     GeocodedWaypoint[] waypointsArr = new RoutePointsGenerator().getRoutePoints(nodeList);
 
-    //1st element in the
+    //assert that the API has returned a path with a waypoint array bigger than the
+    //number of intermediate nodes our algorithm is based on
     assert(waypointsArr.length > 3);
   }
 }

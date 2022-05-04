@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.backendHandlers;
 import com.google.gson.Gson;
 import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
 import edu.brown.cs.student.main.routefindermaps.RouteFinder;
+import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -36,7 +37,9 @@ public class GetRouteHandler implements Route {
 
     RouteFinder routeFinder = new RouteFinder(Double.parseDouble(userRunData.get(0)),
         Double.parseDouble(userRunData.get(1)), Double.parseDouble(userRunData.get(2)));
-    return this.GSON.toJson(routeFinder.findRoute());
+
+    return this.GSON.toJson(
+        new RoutePointsGenerator().getRoutePoints(routeFinder.findRoute()));
 
   }
 }
