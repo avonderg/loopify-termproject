@@ -57,51 +57,43 @@ public class NodeGrid {
   }
 
   /**
-   * Calculate travel distances
+   * Calculate travel distances between nodes
    */
   public void calculateDistances() throws IOException, InterruptedException, ApiException {
-//    int totalNum = nodeNum*nodeNum;
-//    String[] locations = new String[totalNum];
-//    for (int i = 0; i < totalNum; i++){
-//      locations[i] = (nodes.get(i).getLocation());
-//    }
-    String[] origins = {"120 W Randolph St, Chicago, IL 60602, USA", "204 S Clark St, Chicago, IL 60604, USA", "629 N Desplaines St, Chicago, IL 60661, USA"};
-    String[] dests = {"233 S Wacker Dr, Chicago, IL 60606, USA", "101 S Wacker Dr, Chicago, IL 60606, USA", "25 S Wacker Dr, Chicago, IL 60606, USA\""};
-
-    // assuming I have the origins and destinations send over by Jose
-    DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, origins, dests);
-    // TODO: Get distances from the distanceMatReq
-    // if i pass in 25 origins and 25 destinations, API will return 625 distances
-    DistanceMatrix matrix = distanceMatReq.await();
-    DistanceMatrixRow[] rows = matrix.rows; // gets rows from distance matrix
-    Double[][] distMat = new Double[25][25]; // 25 by 25 matrix
-
-      for (int i = 0; i < rows.length; i++) { // loops through the rows
-        DistanceMatrixElement[] elements = rows[i].elements; // gets elements array
-        for (int j = 0; j < elements.length; j++) { // loops through the elements
-          if (elements[j].status.name() == "OK") { // Error checking to prevent program from crashing
-            distMat[i][j] = Double.valueOf(elements[j].distance.inMeters); // gets distance in meters
-          }
-          else { // if an element was unable to be grabbed -- given distance of -1
-            distMat[i][j] = -1.0;
-          }
-        }
-      }
-
-      // converts array to list of lists
-      nodeDistances = Arrays.stream(distMat)
-              .map(Arrays::asList)
-              .collect(Collectors.toList());
+    // TODO: Jose generate 25 start and dest nodes
+    int totalNum = nodeNum*nodeNum;
+    String[] locations = new String[totalNum];
+    for (int i = 0; i < totalNum; i++){
+      locations[i] = (nodes.get(i).getLocation());
+    }
+    // TODO: Jose generate 25 start and dest nodes to be passed into this constructor
+    DistanceMatrixGenerator generateDistances = new DistanceMatrixGenerator(locations,locations);
+    nodeDistances = generateDistances.generateDistances(); // generates distances
   }
 
+
   /**
-   * Getter method for the adjacency list of a graph.
-   * @return adjList
+   * Getter method for the nodes of a node grid.
+   * @return nodes
    */
   public List<Node> getNodes() {
     return nodes;
   }
 
+  /**
+   * Getter method for the node distances.
+   * @return nodeDistances
+   */
+  public List<List<Double>> getNodeDistances() {
+    return nodeDistances;
+  }
+
+  /**
+   * Calculates the travel distances between two different nodes.
+   * @param node1 - node i
+   * @param node2- node j
+   * @return double value representing node distance
+   */
   public double travelDistance(Node node1, Node node2){
     int node1_i = node1.getRow()*nodeNum + node1.getCol();
     int node2_i = node2.getRow()*nodeNum + node2.getCol();
