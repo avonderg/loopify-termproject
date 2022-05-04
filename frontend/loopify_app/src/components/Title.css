@@ -11,6 +11,7 @@ path {
 
 text {
   fill: #47746a;
+  text-align: left;
   font-family: TS-Block, sans-serif;
   font-size: 100px;
   font-weight: bolder;
