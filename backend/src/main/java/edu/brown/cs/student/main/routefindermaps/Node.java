@@ -6,8 +6,8 @@ import com.google.maps.GeoApiContext;
  * Class representing a node within a map.
  */
 public class Node {
-  private int row;
-  private int col;
+  private int id;
+
   private double latitude;
   private double longitude;
   private GeoApiContext context;
@@ -17,9 +17,8 @@ public class Node {
    * @param latitude - latitude
    * @param longitude - longitude
    */
-  public Node(double latitude, double longitude, int row, int col) {
-    this.row = row;
-    this.col = col;
+  public Node(double latitude, double longitude, int id) {
+    this.id = id;
     this.latitude = latitude;
     this.longitude = longitude;
     context = new GeoApiContext.Builder()
@@ -45,19 +44,11 @@ public class Node {
   }
 
   /**
-   * Gets the row index in the grid
-   * @return row index
+   * Gets the id
+   * @return id
    */
-  public int getRow() {
-    return row;
-  }
-
-  /**
-   * Gets the column index in the grid
-   * @return column index
-   */
-  public int getCol() {
-    return col;
+  public int getId(){
+    return id;
   }
 
   /**
