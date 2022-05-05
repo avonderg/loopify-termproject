@@ -26,8 +26,8 @@ public class DistanceMatrixTest {
     System.out.println(dist2);
 
     // makes sure the distances between locations can be found, and are correctly placed within the list of lists
-    Assert.assertEquals(dist1, 1169.0,0.01);
-    Assert.assertEquals(dist2, 1024.0,0.01);
+    Assert.assertEquals(dist1, 0.7263829237254434,0.01);
+    Assert.assertEquals(dist2, 0.6362841008510299,0.01);
 
   }
 }

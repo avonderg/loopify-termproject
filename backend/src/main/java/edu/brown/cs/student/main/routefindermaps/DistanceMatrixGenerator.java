@@ -57,7 +57,9 @@ public class DistanceMatrixGenerator {
       DistanceMatrixElement[] elements = rows[i].elements; // gets elements array
       for (int j = 0; j < elements.length; j++) { // loops through the elements
         if (elements[j].status.name() == "OK") { // Error checking to prevent program from crashing
-          distMat[i][j] = Double.valueOf(elements[j].distance.inMeters); // gets distance in meters
+          distMat[i][j] = Double.valueOf(elements[j].distance.inMeters) / 1609.344; // gets distance in miles
+
+          ; // gets distance in meters
         }
         else { // if an element was unable to be grabbed -- given distance of -1
           distMat[i][j] = -1.0;
