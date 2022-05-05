@@ -1,25 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './MotivationalQuote.css';
 
 function MotivationalQuote() {
 
-    const [quote, setQuote] =
-        useState("Dead last finish is greater than did not finish, which trumps did not start.");
-
-    let randomQuote = fetch("https://zenquotes.io/api/today", {
-        method: 'GET',
-    }).then((r: { json: () => any; }) => r.json()).then((db: any) => getQuote(db))
+    const [quote, setQuote] = useState("");
 
 
-    function getQuote(db : any) {
-        return db.toArray()[0]
+    useEffect(() => {
+        getQuotes();
+    }, []);
+
+    const getQuotes = () => {
+        fetch("https://type.fit/api/quotes")
+            .then(function (response) { return response.json()})
+            .then((data) => { setQuote(data[Math.floor(Math.random() * data.length)].text) })
     }
 
   return (
       <div className='MotivationalQuote'>
-          <h1>
-              {quote}
-          </h1>
+          <h1> {quote} </h1>
       </div>
   );
 

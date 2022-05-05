@@ -16,11 +16,11 @@
   font-weight: lighter;
 }
 
-.RouteContainer button {
+.RouteContainer #locationButton {
   background-color: #47746a;
   border: none;
   color: #fff;
-  padding: 7px 12px;
+  padding: 3px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -28,23 +28,39 @@
   font-size: 16px;
   font-weight: lighter;
   margin: 4px 2px;
-  border-radius: 12px;
+  border-radius: 20px;
   transform: scale(1,.9);
 }
 
 .RouteContainer input {
   border: 2px solid #47746a;
   text-align: center;
-  padding: 5px 12px;
+  padding: 3px 12px;
   font-family: Geneva;
   font-size: 16px;
   font-weight: lighter;
   margin: 4px 2px;
-  border-radius: 12px;
+  border-radius: 20px;
   transform: scale(1,.9);
   width: 50px;
 }
 
 .RouteContainer path {
   fill: #47746a;
+}
+
+.RouteContainer #goButton {
+  background-color: #ebf37b;
+  border: none;
+  color: #47746a;
+  padding: 3px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Geneva;
+  font-size: 16px;
+  font-weight: lighter;
+  margin: 4px 2px;
+  border-radius: 20px;
+  transform: scale(1,.9);
 }
