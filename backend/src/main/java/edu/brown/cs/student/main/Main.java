@@ -1,10 +1,6 @@
 package edu.brown.cs.student.main;
 
-import edu.brown.cs.student.main.backendHandlers.DeleteHandler;
-import edu.brown.cs.student.main.backendHandlers.InsertHandler;
-import edu.brown.cs.student.main.backendHandlers.TableHandler;
-import edu.brown.cs.student.main.backendHandlers.TableNameHandler;
-import edu.brown.cs.student.main.backendHandlers.UpdateHandler;
+import edu.brown.cs.student.main.backendHandlers.*;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -91,6 +87,7 @@ public final class Main {
     Spark.post("/insert", new InsertHandler());
     Spark.post("/update", new UpdateHandler());
     Spark.post("/delete", new DeleteHandler());
+    Spark.post("/getRoute", new GetRouteHandler());
     Spark.init();
   }
 }
