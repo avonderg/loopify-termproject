@@ -39,7 +39,7 @@ public class NodeGrid {
    */
   public NodeGrid(double startLat, double startLon, double distance, int nodeNum) {
     // For now, we will only deal with 25 nodes
-    this.nodeNum = nodeNum;
+    this.nodeNum = 5;
     this.longToMiles = latToMiles * Math.cos(startLat * Math.PI / 180);
     double latDiameter = distance*(1/latToMiles);
     double lonDiameter = distance*(1/longToMiles);
@@ -76,7 +76,7 @@ public class NodeGrid {
     }
     // TODO: Jose generate 25 start and dest nodes to be passed into this constructor
     DistanceMatrixGenerator dist = new DistanceMatrixGenerator(locations,locations);
-    nodeDistances = dist.generateDistances(); // generates distances
+    nodeDistances = dist.generateDistances25(); // generates distances
   }
 
 

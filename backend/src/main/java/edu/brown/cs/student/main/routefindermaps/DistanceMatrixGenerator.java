@@ -9,6 +9,7 @@ import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +36,37 @@ public class DistanceMatrixGenerator {
     this.destinations = destinations;
   }
 
+  public List<List<Double>> generateDistances25() throws IOException, InterruptedException, ApiException {
+    assert origins.length == 25;
+    assert destinations.length == 25;
+    Double[][] distMat = new Double[25][25];
+    List<String> locations = Arrays.asList(origins);
+    String[] locations1 = locations.subList(0, 10).toArray(String[]::new);
+    String[] locations2 = locations.subList(10, 20).toArray(String[]::new);
+    String[] locations3 = locations.subList(20, 25).toArray(String[]::new);
+    List<String[]> locsList = new ArrayList<>();
+    locsList.add(locations1);
+    locsList.add(locations2);
+    locsList.add(locations3);
+    List<Integer> lengths = new ArrayList<>();
+    lengths.add(10);
+    lengths.add(10);
+    lengths.add(5);
+    for (int i = 0; i < 3; i ++){
+      for (int j = 0; j < 3; j ++){
+        List<List<Double>> subDistMat = generateDistances(locsList.get(i), locsList.get(j));
+        for (int i2 = 0; i2 < lengths.get(i); i2++){
+          for (int j2 = 0; j2 < lengths.get(j); j2++){
+            distMat[10*i + i2][10*j + j2] = subDistMat.get(i2).get(j2);
+          }
+        }
+      }
+    }
+    // converts array to list of lists
+    return Arrays.stream(distMat)
+            .map(Arrays::asList)
+            .collect(Collectors.toList());
+  }
   /**
    * Makes a call to the DistanceMatrixApi, given 25 origin and destination addresses, and retrieves a response
    * consisting of a distance matrix. This response is then parsed, and the distances are extracted and stored
@@ -44,14 +76,14 @@ public class DistanceMatrixGenerator {
    * @throws InterruptedException
    * @throws ApiException
    */
-  public List<List<Double>> generateDistances() throws IOException, InterruptedException, ApiException {
+  public List<List<Double>> generateDistances(String[] origins, String[] destinations) throws IOException, InterruptedException, ApiException {
     List<List<Double>> nodeDistances;
 
     DistanceMatrixApiRequest distanceMatReq = DistanceMatrixApi.getDistanceMatrix(context, origins, destinations);
     // get response
     DistanceMatrix matrix = distanceMatReq.await();
     DistanceMatrixRow[] rows = matrix.rows; // gets rows from distance matrix
-    Double[][] distMat = new Double[25][25]; // 25 by 25 matrix -> max # we can request from the API
+    Double[][] distMat = new Double[10][10]; // 10 by 10 matrix -> max # we can request from the API
 
     for (int i = 0; i < rows.length; i++) { // loops through the rows
       DistanceMatrixElement[] elements = rows[i].elements; // gets elements array

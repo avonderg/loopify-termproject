@@ -18,7 +18,7 @@ public class DistanceMatrixTest {
 
     DistanceMatrixGenerator generator = new DistanceMatrixGenerator(origins,dests);
 
-    List<List<Double>> testDistances = generator.generateDistances();
+    List<List<Double>> testDistances = generator.generateDistances(origins,dests);
 
     double dist1 = testDistances.get(0).get(0);
     System.out.println(dist1);
