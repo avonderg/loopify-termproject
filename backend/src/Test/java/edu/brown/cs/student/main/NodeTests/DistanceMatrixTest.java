@@ -1,4 +1,4 @@
-package NodeTests;
+package edu.brown.cs.student.main.NodeTests;
 
 import com.google.maps.errors.ApiException;
 import edu.brown.cs.student.main.routefindermaps.DistanceMatrixGenerator;
