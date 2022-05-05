@@ -7,6 +7,8 @@ import com.google.maps.GeoApiContext;
  */
 public class Node {
   private int id;
+  private int row;
+  private int col;
 
   private double latitude;
   private double longitude;
@@ -72,6 +74,6 @@ public class Node {
    * @return location string
    */
   public String getLocation(){
-    return String.valueOf(longitude) + ", " + String.valueOf(latitude);
+    return String.valueOf(latitude) + ", " + String.valueOf(longitude);
   }
 }

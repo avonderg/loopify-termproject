@@ -10,7 +10,7 @@ import java.util.List;
  * user to follow.
  */
 public class RouteFinder {
-  private final int nodeNum = 5; // number of nodes per row / column
+  private final int nodeNum = 3; // number of nodes per row / column
   Node start;
   NodeGrid nodeGrid;
   double distance;
@@ -36,7 +36,7 @@ public class RouteFinder {
         double dist = nodeGrid.travelDistance(start, node1)
                 + nodeGrid.travelDistance(node1, node2)
                 + nodeGrid.travelDistance(node2, start);
-        if (Math.abs(distance - closestDist) >= Math.abs(distance - dist)){
+        if (closestDist == 0 || Math.abs(distance - closestDist) >= Math.abs(distance - dist)){
           closestDist = dist;
           pathNode1 = node1;
           pathNode2 = node2;
