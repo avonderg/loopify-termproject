@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
 import edu.brown.cs.student.main.routefindermaps.RouteFinder;
 import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
+import org.json.JSONArray;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -35,11 +36,16 @@ public class GetRouteHandler implements Route {
     List<String>
         userRunData = GSON.fromJson(runDataJSON.toString(), ArrayList.class);
 
+    //userRunData:
+    //index 0: start location latitude
+    //index 1: start location longitude
+    //index 2: distance to run
     RouteFinder routeFinder = new RouteFinder(Double.parseDouble(userRunData.get(0)),
         Double.parseDouble(userRunData.get(1)), Double.parseDouble(userRunData.get(2)));
 
-    return this.GSON.toJson(
-        new RoutePointsGenerator().getRoutePoints(routeFinder.findRoute()));
-
+    List<Object> infoToSend = new ArrayList<>();
+    infoToSend.add(0);
+    infoToSend.add((new RoutePointsGenerator().getRoutePoints(routeFinder.findRoute())));
+    return this.GSON.toJson(infoToSend);
   }
 }

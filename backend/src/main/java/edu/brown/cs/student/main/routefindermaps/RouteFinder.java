@@ -14,6 +14,7 @@ public class RouteFinder {
   Node start;
   NodeGrid nodeGrid;
   double distance;
+
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);

@@ -86,7 +86,7 @@ public class DatabaseAccessor {
       return command.getResultSet();
     } else {
       return null;
-    }
+         }
   }
 
 
