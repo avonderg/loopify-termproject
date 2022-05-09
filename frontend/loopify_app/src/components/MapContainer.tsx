@@ -14,22 +14,21 @@ interface MapProps {
 function MapContainer(props:MapProps) {
 
     const ref = React.useRef<HTMLDivElement>(null);
+
     // @ts-ignore
     const [map, setMap] = React.useState<google.maps.Map>(null);
-
-    const center: google.maps.LatLngLiteral = {lat: props.lat, lng: props.lng};
-
-    const apiKey = process.env.LOOPIFY_APP_KEY || ""
-
-    let path: google.maps.Polyline | null = null;
-
     const [miles, setMiles] = useState(0)
-    const [zoom, setZoom] = useState(10)
+    const [zoom, setZoom] = useState(16.6)
+    const [lat, setLat] = useState(41.8268)
+    const [lng, setLng] = useState(-71.4025)
+    const apiKey = process.env.LOOPIFY_APP_KEY || ""
+    let path: google.maps.Polyline | null = null;
+    let loc: google.maps.Marker | null = null;
 
     React.useEffect(() => {
         if (ref.current && !map) {
             setMap(new window.google.maps.Map(ref.current, {
-                center: center,
+                center: {lat: lat, lng: lng},
                 zoom: zoom
             }));
         }
@@ -94,11 +93,42 @@ function MapContainer(props:MapProps) {
         }
     }
 
+    /**
+     * function that retrieves user's current location
+     */
+    function getCurLoc() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLat(position.coords.latitude);
+                setLng(position.coords.longitude);
+            })
+        }
+
+        // remove previous path
+        if(loc!=null){
+            loc.setMap(null)
+            console.log("remove " + loc);
+        }
+
+        // create new path's polyline
+        loc = new google.maps.Marker({
+            position: {lat: lat, lng: lng},
+        });
+
+        // draw path on the map
+        loc.setMap(map)
+        console.log("drew " + loc)
+    }
+
     return (
         <div id="map container">
 
+            <label> base: </label>
+            <button onClick={getCurLoc} id="locationButton" > use my location  </button> <br/>
+
             <label> miles: </label>
-            <input type="number" onChange={(e) => sendMileage(e.target.value)}/> <br/>
+            <input type="number" min="0" onChange={(e) => sendMileage(e.target.value)}/>
+            <br/>
 
             <button id="goButton" onClick={getRoute}> go! </button> <br/>
 

@@ -35,15 +35,6 @@ function RouteContainer() {
     //     }
     // }
 
-    function getCurLoc() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setLat(position.coords.latitude);
-                setLng(position.coords.longitude);
-            })
-        }
-    }
-
     const render = (status: Status) => {
         return <h1>{status}</h1>;
     };
@@ -53,8 +44,6 @@ function RouteContainer() {
 
             <h2> find a loop </h2>
 
-            <label> base: </label>
-            <button onClick={getCurLoc} id="locationButton" > use my location  </button> <br/>
 
             {/*<label> miles: </label>*/}
             {/*<input type="number" onChange={(e) => sendMileage(e.target.value)}/> <br/>*/}
