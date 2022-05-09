@@ -97,8 +97,11 @@ function MapContainer(props:MapProps) {
      * function that retrieves user's current location
      */
     function getCurLoc() {
+
+        console.log(loc);
+
         // remove previous marker
-        if(loc!=null){
+        if(loc){
             loc.setMap(null)
             console.log("remove " + loc);
         }
