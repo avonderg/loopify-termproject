@@ -19,8 +19,8 @@ function MapContainer(props:MapProps) {
     const [map, setMap] = React.useState<google.maps.Map>(null);
     const [miles, setMiles] = useState(0)
     const [zoom, setZoom] = useState(16.6)
-    const [lat, setLat] = useState(0)
-    const [lng, setLng] = useState(0)
+    const [lat, setLat] = useState(41.8268)
+    const [lng, setLng] = useState(-71.4025)
     const apiKey = process.env.LOOPIFY_APP_KEY || ""
     let path: google.maps.Polyline | null = null;
     let loc: google.maps.Marker | null = null;
