@@ -111,19 +111,17 @@ function MapContainer(props:MapProps) {
                 setLat(position.coords.latitude);
                 setLng(position.coords.longitude);
             })
-        } else {
-            setLat(41.8268);
-            setLng(-71.4025);
+
+            // create new marker
+            loc = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+            });
+
+            // draw path on the map
+            loc.setMap(map)
+            console.log("drew " + loc)
+
         }
-
-        // create new marker
-        loc = new google.maps.Marker({
-            position: {lat: lat, lng: lng},
-        });
-
-        // draw path on the map
-        loc.setMap(map)
-        console.log("drew " + loc)
     }
 
     return (
