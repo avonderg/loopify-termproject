@@ -97,6 +97,12 @@ function MapContainer(props:MapProps) {
      * function that retrieves user's current location
      */
     function getCurLoc() {
+        // remove previous marker
+        if(loc!=null){
+            loc.setMap(null)
+            console.log("remove " + loc);
+        }
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 setLat(position.coords.latitude);
@@ -104,13 +110,7 @@ function MapContainer(props:MapProps) {
             })
         }
 
-        // remove previous path
-        if(loc!=null){
-            loc.setMap(null)
-            console.log("remove " + loc);
-        }
-
-        // create new path's polyline
+        // create new marker
         loc = new google.maps.Marker({
             position: {lat: lat, lng: lng},
         });
