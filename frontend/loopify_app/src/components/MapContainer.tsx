@@ -98,7 +98,7 @@ function MapContainer(props:MapProps) {
      */
     function getCurLoc() {
 
-        console.log(loc);
+        console.log("location obj " + loc);
 
         // remove previous marker
         if(loc){
