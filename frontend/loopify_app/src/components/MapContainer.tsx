@@ -96,9 +96,8 @@ function MapContainer(props:MapProps) {
     /**
      * function that retrieves user's current location
      */
-    function getCurLoc() {
-
-        console.log("location obj " + loc);
+    async function getCurLoc() {
+        console.log(loc);
 
         // remove previous marker
         if(loc){
@@ -107,10 +106,7 @@ function MapContainer(props:MapProps) {
         }
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setLat(position.coords.latitude);
-                setLng(position.coords.longitude);
-            })
+            await accessLoc();
 
             // create new marker
             loc = new google.maps.Marker({
@@ -120,8 +116,19 @@ function MapContainer(props:MapProps) {
             // draw path on the map
             loc.setMap(map)
             console.log("drew " + loc)
-
         }
+    }
+
+    async function accessLoc() {
+        return new Promise<void>((resolve) => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLat(position.coords.latitude);
+                setLng(position.coords.longitude);
+            })
+            if ( lat != 41.82868 && lng != -71.4025) {
+                resolve();
+            }
+        })
     }
 
     return (
