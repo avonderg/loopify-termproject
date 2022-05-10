@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './MapContainer.css';
 
 //https://developers.google.com/maps/documentation/javascript/react-map
 
@@ -24,8 +25,7 @@ function MapContainer(props: MapProps) {
     const [zoom, setZoom] = useState(16.6);
     const [lat, setLat] = useState(41.8268);
     const [lng, setLng] = useState(-71.4025);
-    const [coords, setCoords] = useState([]);
-
+    const [dist, setDist] = useState(0);
     const apiKey = process.env.LOOPIFY_APP_KEY || "";
 
     let path: google.maps.Polyline | null = null;
@@ -56,7 +56,7 @@ function MapContainer(props: MapProps) {
 
     // reset mileage and zoom value
     setMiles(+miles);
-    setZoom(17 - 0.4 * +miles);
+    setZoom(15 - 0.4 * +miles);
 
     // reset zoom level of map
     map.setZoom(zoom);
@@ -67,7 +67,7 @@ function MapContainer(props: MapProps) {
    * function that clears the current route on the map, retrieves the
    * new path's coordinates from the backend, and draws the new path
    */
-  function getRoute() {
+  async function getRoute() {
     // if mileage inputted is not empty
     if (miles != 0) {
       // remove previous path
@@ -77,8 +77,14 @@ function MapContainer(props: MapProps) {
       }
 
       // get route from backend
-      getRouteInfo()
-      console.log(coords);
+        let info : RouteInfo = {distance: 0, coords: []};
+      await getRouteInfo().then(value => info = value)
+
+        let pathCoords : google.maps.LatLng[] = info.coords;
+        console.log(pathCoords);
+        console.log(info.distance);
+        setDist(info.distance);
+        console.log(dist);
 
       // [{ lat: 41.82564761175736, lng: -71.39906517404758 },
       // { lat: 41.8274258402602, lng: -71.39933512294401 },
@@ -88,10 +94,10 @@ function MapContainer(props: MapProps) {
 
       // create new path's polyline
       path = new google.maps.Polyline({
-        path: coords, //route.coords,
+        path: pathCoords, //route.coords,
         geodesic: true,
-        strokeColor: "#ebf37b",
-        strokeOpacity: 0.5,
+        strokeColor: "#ea4435",
+        strokeOpacity: 0.8,
         strokeWeight: 10,
       });
 
@@ -105,22 +111,18 @@ function MapContainer(props: MapProps) {
    * Loads the dropdown upon page loading.
    */
   async function getRouteInfo() {
-      return new Promise<void>(async (resolve) => {
+      return new Promise<RouteInfo>(async (resolve) => {
           const userRouteRequest: number[] = [lat, lng, miles];
           const res: Response = await fetch("http://localhost:4567/getRoute", {
               method: "post",
               body: JSON.stringify(userRouteRequest),
               headers: {
                   "Content-Type": "application/json; charset=UTF-8",
-                  "Access-Control-Allow-Origin": "*",
-              },
-          });
+                  "Access-Control-Allow-Origin": "*",},});
           let route: RouteInfo = { distance: 0, coords: [] };
           let routeData: void = await res.json().then(value => {route = value});
           if(route.coords.length > 0) {
-              // @ts-ignore
-              setCoords(route.coords);
-              resolve();
+              resolve(route);
           }
       })
   }
@@ -199,6 +201,8 @@ function MapContainer(props: MapProps) {
         style={{ height: "400px", width: "600px", margin: "30px auto" }}
         ref={ref}
       ></div>
+
+        <p> route distance: {dist} miles </p>
     </div>
   );
 }

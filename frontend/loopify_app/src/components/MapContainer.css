@@ -1,8 +1,8 @@
-.MotivationalQuote h1 {
-    color: black;
-    font-family: Georgia;
-    font-size: 20px;
-    font-weight: lighter;
+p {
+    color: #47746a;
+    font-family: Geneva;
+    font-size: 15px;
+    font-weight: bolder;
 
     background-color: #fff;
     fill-opacity: 1;
@@ -10,8 +10,4 @@
     padding: 20px;
     width: 300px;
     margin: 30px auto;
-}
-
-.MotivationalQuote {
-    text-align: center;
 }
