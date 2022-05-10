@@ -22,25 +22,32 @@ function MapContainer(props: MapProps) {
   // @ts-ignore
   const [map, setMap] = React.useState<google.maps.Map>(null);
   const [miles, setMiles] = useState(0);
-  const [zoom, setZoom] = useState(16.6);
+  const [zoom, setZoom] = useState(14.6);
   const [lat, setLat] = useState(41.8268);
   const [lng, setLng] = useState(-71.4025);
   const [dist, setDist] = useState(0);
+
   const apiKey = process.env.LOOPIFY_APP_KEY || "";
 
-  let path: google.maps.Polyline | null = null;
+  let [path, setPath] = useState<google.maps.Polyline>(new google.maps.Polyline({
+    path: [], //route.coords,
+    geodesic: true,
+    strokeColor: "#ea4435",
+    strokeOpacity: 1,
+    strokeWeight: 5,}))
   let loc: google.maps.Marker | null = null;
 
   React.useEffect(() => {
     if (ref.current && !map) {
       setMap(
-        new window.google.maps.Map(ref.current, {
-          center: { lat: lat, lng: lng },
-          zoom: zoom,
-        })
+          new window.google.maps.Map(ref.current, {
+            center: { lat: lat, lng: lng },
+            zoom: zoom,
+          })
       );
     }
   }, [ref, map]);
+  path.setMap(map);
 
   /**
    * function that changes the mileage when the miles input box is changed.
@@ -49,10 +56,8 @@ function MapContainer(props: MapProps) {
    * @param miles input number
    */
   function sendMileage(miles: string) {
-    // remove previous path drawn
-    if (path) {
-      path.setMap(null);
-    }
+    console.log(path.getPath());
+    path.setPath([]);
 
     // reset mileage and zoom value
     setMiles(+miles);
@@ -60,7 +65,6 @@ function MapContainer(props: MapProps) {
 
     // reset zoom level of map
     map.setZoom(zoom);
-    console.log(zoom);
   }
 
   /**
@@ -68,23 +72,14 @@ function MapContainer(props: MapProps) {
    * new path's coordinates from the backend, and draws the new path
    */
   async function getRoute() {
-    // if mileage inputted is not empty
-    if (miles != 0) {
-      // remove previous path
-      if (path != null) {
-        path.setMap(null);
-        console.log("remove " + path);
-      }
+    path.setPath([]);
 
+    // if mileage inputted is greater than 0
+    if (miles != 0) {
       // get route from backend
       let info: RouteInfo = { distance: 0, coords: [] };
       await getRouteInfo().then((value) => (info = value));
-
-      let pathCoords: google.maps.LatLng[] = info.coords;
-      console.log(pathCoords);
-      console.log(info.distance);
       setDist(info.distance);
-      console.log(dist);
 
       // [{ lat: 41.82564761175736, lng: -71.39906517404758 },
       // { lat: 41.8274258402602, lng: -71.39933512294401 },
@@ -93,22 +88,17 @@ function MapContainer(props: MapProps) {
       // { lat: 41.82564761175736, lng: -71.39906517404758 }]
 
       // create new path's polyline
-      path = new google.maps.Polyline({
-        path: pathCoords, //route.coords,
+      setPath(new google.maps.Polyline({
+        path: info.coords, //route.coords,
         geodesic: true,
         strokeColor: "#ea4435",
-        strokeOpacity: 0.8,
-        strokeWeight: 10,
-      });
-
-      // draw path on the map
-      path.setMap(map);
-      console.log("drew " + path);
+        strokeOpacity: 1,
+        strokeWeight: 5,}));
     }
   }
 
   /**
-   * Loads the dropdown upon page loading.
+   * Fetches route info from backend
    */
   async function getRouteInfo() {
     return new Promise<RouteInfo>(async (resolve) => {
@@ -135,32 +125,24 @@ function MapContainer(props: MapProps) {
    * function that retrieves user's current location
    */
   async function getCurLoc() {
-    console.log(loc);
+    path.setPath([]);
 
     // remove previous marker
     if (loc) {
       loc.setMap(null);
-      console.log("remove " + loc);
     }
-    if (path) {
-      path.setMap(null);
-    }
+
+    console.log("CURRENT LOCATION: " + loc)
 
     if (navigator.geolocation) {
       await accessLoc();
 
       // create new marker
-      loc = new google.maps.Marker({
-        position: { lat: lat, lng: lng },
-      });
+      loc = new google.maps.Marker({ position: { lat: lat, lng: lng }});
 
       // draw path on the map
       loc.setMap(map);
-      if (path) {
-        path.setMap(null);
-      }
       map.setCenter({ lat, lng });
-      console.log("drew " + loc);
     }
   }
 
@@ -181,36 +163,36 @@ function MapContainer(props: MapProps) {
   }
 
   return (
-    <div id="map container">
-      <label> base: </label>
-      <button
-        onClick={getCurLoc}
-        id="locationButton"
-        style={{ cursor: "pointer" }}
-      >
-        {" "}
-        use my location{" "}
-      </button>{" "}
-      <br />
-      <label> miles: </label>
-      <input
-        type="number"
-        min="0"
-        onChange={(e) => sendMileage(e.target.value)}
-      />
-      <br />
-      <button id="goButton" style={{ cursor: "pointer" }} onClick={getRoute}>
-        {" "}
-        go!{" "}
-      </button>{" "}
-      <br />
-      <div
-        id="map"
-        style={{ height: "400px", width: "600px", margin: "30px auto" }}
-        ref={ref}
-      ></div>
-      <p> route distance: {Math.round(100 * dist) / 100} miles </p>
-    </div>
+      <div id="map container">
+        <label> base: </label>
+        <button
+            onClick={getCurLoc}
+            id="locationButton"
+            style={{ cursor: "pointer" }}
+        >
+          {" "}
+          use my location{" "}
+        </button>{" "}
+        <br />
+        <label> miles: </label>
+        <input
+            type="number"
+            min="0"
+            onChange={(e) => sendMileage(e.target.value)}
+        />
+        <br />
+        <button id="goButton" style={{ cursor: "pointer" }} onClick={getRoute}>
+          {" "}
+          go!{" "}
+        </button>{" "}
+        <br />
+        <div
+            id="map"
+            style={{ height: "400px", width: "600px", margin: "30px auto" }}
+            ref={ref}
+        ></div>
+        <p> route distance: {Math.round(100 * dist) / 100} miles </p>
+      </div>
   );
 }
 export default MapContainer;
