@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.backendHandlers;
 import com.google.gson.Gson;
 import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
 import edu.brown.cs.student.main.databaseaccessor.RouteInfo;
+import edu.brown.cs.student.main.routefindermaps.Node;
 import edu.brown.cs.student.main.routefindermaps.RouteFinder;
 import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
 import org.json.JSONArray;
@@ -46,7 +47,8 @@ public class GetRouteHandler implements Route {
     //index 2: distance to run
     RouteFinder routeFinder = new RouteFinder(userRunData.get(0),
         userRunData.get(1), userRunData.get(2));
-    RouteInfo routeInfo = new RouteInfo(0, new RoutePointsGenerator().getRoutePoints(routeFinder.findRoute()));
+    List<Node> route = routeFinder.findRoute();
+    RouteInfo routeInfo = new RouteInfo(routeFinder.getPathDistance(), new RoutePointsGenerator().getRoutePoints(route));
 
     return this.GSON.toJson(routeInfo);
   }
