@@ -1,0 +1,13 @@
+p {
+    color: #47746a;
+    font-family: Geneva;
+    font-size: 15px;
+    font-weight: bolder;
+
+    background-color: #fff;
+    fill-opacity: 1;
+    border-radius: 25px;
+    padding: 20px;
+    width: 300px;
+    margin: 30px auto;
+}
