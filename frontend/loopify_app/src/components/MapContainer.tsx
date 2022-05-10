@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './MapContainer.css';
+import "./MapContainer.css";
 
 //https://developers.google.com/maps/documentation/javascript/react-map
 
@@ -17,19 +17,19 @@ type RouteInfo = {
 };
 
 function MapContainer(props: MapProps) {
-    const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
 
-    // @ts-ignore
-    const [map, setMap] = React.useState<google.maps.Map>(null);
-    const [miles, setMiles] = useState(0);
-    const [zoom, setZoom] = useState(16.6);
-    const [lat, setLat] = useState(41.8268);
-    const [lng, setLng] = useState(-71.4025);
-    const [dist, setDist] = useState(0);
-    const apiKey = process.env.LOOPIFY_APP_KEY || "";
+  // @ts-ignore
+  const [map, setMap] = React.useState<google.maps.Map>(null);
+  const [miles, setMiles] = useState(0);
+  const [zoom, setZoom] = useState(16.6);
+  const [lat, setLat] = useState(41.8268);
+  const [lng, setLng] = useState(-71.4025);
+  const [dist, setDist] = useState(0);
+  const apiKey = process.env.LOOPIFY_APP_KEY || "";
 
-    let path: google.maps.Polyline | null = null;
-    let loc: google.maps.Marker | null = null;
+  let path: google.maps.Polyline | null = null;
+  let loc: google.maps.Marker | null = null;
 
   React.useEffect(() => {
     if (ref.current && !map) {
@@ -77,14 +77,14 @@ function MapContainer(props: MapProps) {
       }
 
       // get route from backend
-        let info : RouteInfo = {distance: 0, coords: []};
-      await getRouteInfo().then(value => info = value)
+      let info: RouteInfo = { distance: 0, coords: [] };
+      await getRouteInfo().then((value) => (info = value));
 
-        let pathCoords : google.maps.LatLng[] = info.coords;
-        console.log(pathCoords);
-        console.log(info.distance);
-        setDist(info.distance);
-        console.log(dist);
+      let pathCoords: google.maps.LatLng[] = info.coords;
+      console.log(pathCoords);
+      console.log(info.distance);
+      setDist(info.distance);
+      console.log(dist);
 
       // [{ lat: 41.82564761175736, lng: -71.39906517404758 },
       // { lat: 41.8274258402602, lng: -71.39933512294401 },
@@ -111,20 +111,24 @@ function MapContainer(props: MapProps) {
    * Loads the dropdown upon page loading.
    */
   async function getRouteInfo() {
-      return new Promise<RouteInfo>(async (resolve) => {
-          const userRouteRequest: number[] = [lat, lng, miles];
-          const res: Response = await fetch("http://localhost:4567/getRoute", {
-              method: "post",
-              body: JSON.stringify(userRouteRequest),
-              headers: {
-                  "Content-Type": "application/json; charset=UTF-8",
-                  "Access-Control-Allow-Origin": "*",},});
-          let route: RouteInfo = { distance: 0, coords: [] };
-          let routeData: void = await res.json().then(value => {route = value});
-          if(route.coords.length > 0) {
-              resolve(route);
-          }
-      })
+    return new Promise<RouteInfo>(async (resolve) => {
+      const userRouteRequest: number[] = [lat, lng, miles];
+      const res: Response = await fetch("http://localhost:4567/getRoute", {
+        method: "post",
+        body: JSON.stringify(userRouteRequest),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      let route: RouteInfo = { distance: 0, coords: [] };
+      let routeData: void = await res.json().then((value) => {
+        route = value;
+      });
+      if (route.coords.length > 0) {
+        resolve(route);
+      }
+    });
   }
 
   /**
@@ -135,11 +139,11 @@ function MapContainer(props: MapProps) {
 
     // remove previous marker
     if (loc) {
-        loc.setMap(null);
-        console.log("remove " + loc);
+      loc.setMap(null);
+      console.log("remove " + loc);
     }
-    if(path) {
-        path.setMap(null);
+    if (path) {
+      path.setMap(null);
     }
 
     if (navigator.geolocation) {
@@ -152,18 +156,18 @@ function MapContainer(props: MapProps) {
 
       // draw path on the map
       loc.setMap(map);
-      if(path) {
-          path.setMap(null);
+      if (path) {
+        path.setMap(null);
       }
-      map.setCenter({lat, lng});
+      map.setCenter({ lat, lng });
       console.log("drew " + loc);
     }
   }
 
-    /**
-     * async function that return a promise after current location
-     * has been udpated to user's actual location
-     */
+  /**
+   * async function that return a promise after current location
+   * has been udpated to user's actual location
+   */
   async function accessLoc() {
     return new Promise<void>((resolve) => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -201,8 +205,7 @@ function MapContainer(props: MapProps) {
         style={{ height: "400px", width: "600px", margin: "30px auto" }}
         ref={ref}
       ></div>
-
-        <p> route distance: {dist} miles </p>
+      <p> route distance: {Math.round(100 * dist) / 100} miles </p>
     </div>
   );
 }
