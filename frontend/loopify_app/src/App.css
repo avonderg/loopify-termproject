@@ -43,3 +43,7 @@
   height: 30vh;
   width: 100%;
 }
+
+.button {
+  cursor: pointer;
+}

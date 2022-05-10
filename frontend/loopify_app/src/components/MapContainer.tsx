@@ -183,7 +183,11 @@ function MapContainer(props: MapProps) {
   return (
     <div id="map container">
       <label> base: </label>
-      <button onClick={getCurLoc} id="locationButton">
+      <button
+        onClick={getCurLoc}
+        id="locationButton"
+        style={{ cursor: "pointer" }}
+      >
         {" "}
         use my location{" "}
       </button>{" "}
@@ -195,7 +199,7 @@ function MapContainer(props: MapProps) {
         onChange={(e) => sendMileage(e.target.value)}
       />
       <br />
-      <button id="goButton" onClick={getRoute}>
+      <button id="goButton" style={{ cursor: "pointer" }} onClick={getRoute}>
         {" "}
         go!{" "}
       </button>{" "}
