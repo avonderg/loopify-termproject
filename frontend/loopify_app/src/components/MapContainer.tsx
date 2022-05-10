@@ -16,17 +16,20 @@ type RouteInfo = {
 };
 
 function MapContainer(props: MapProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
+    const ref = React.useRef<HTMLDivElement>(null);
 
-  // @ts-ignore
-  const [map, setMap] = React.useState<google.maps.Map>(null);
-  const [miles, setMiles] = useState(0);
-  const [zoom, setZoom] = useState(16.6);
-  const [lat, setLat] = useState(41.8268);
-  const [lng, setLng] = useState(-71.4025);
-  const apiKey = process.env.LOOPIFY_APP_KEY || "";
-  let path: google.maps.Polyline | null = null;
-  let loc: google.maps.Marker | null = null;
+    // @ts-ignore
+    const [map, setMap] = React.useState<google.maps.Map>(null);
+    const [miles, setMiles] = useState(0);
+    const [zoom, setZoom] = useState(16.6);
+    const [lat, setLat] = useState(41.8268);
+    const [lng, setLng] = useState(-71.4025);
+    const [coords, setCoords] = useState([]);
+
+    const apiKey = process.env.LOOPIFY_APP_KEY || "";
+
+    let path: google.maps.Polyline | null = null;
+    let loc: google.maps.Marker | null = null;
 
   React.useEffect(() => {
     if (ref.current && !map) {
@@ -73,22 +76,19 @@ function MapContainer(props: MapProps) {
         console.log("remove " + path);
       }
 
-      let route: RouteInfo = { distance: 0, coords: [] };
+      // get route from backend
+      getRouteInfo()
+      console.log(coords);
 
-      let routeData = getRouteInfo().then((value) => (route = value));
-      console.log(route.coords);
-
-      // TODO: get route from backend, send miles and lat and lng
-      //let pathCoords = routeData.coords;
-      // { lat: 41.82564761175736, lng: -71.39906517404758 },
+      // [{ lat: 41.82564761175736, lng: -71.39906517404758 },
       // { lat: 41.8274258402602, lng: -71.39933512294401 },
       // { lat: 41.82728905520579, lng: -71.40056608991783 },
       // { lat: 41.82558324056852, lng: -71.40037172671241 },
-      // { lat: 41.82564761175736, lng: -71.39906517404758 },
+      // { lat: 41.82564761175736, lng: -71.39906517404758 }]
 
       // create new path's polyline
       path = new google.maps.Polyline({
-        path: route.coords,
+        path: coords, //route.coords,
         geodesic: true,
         strokeColor: "#ebf37b",
         strokeOpacity: 0.5,
@@ -105,20 +105,24 @@ function MapContainer(props: MapProps) {
    * Loads the dropdown upon page loading.
    */
   async function getRouteInfo() {
-    const userRouteRequest: number[] = [lat, lng, miles];
-    const res: Response = await fetch("http://localhost:4567/getRoute", {
-      method: "post",
-      body: JSON.stringify(userRouteRequest),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
-    let routeData: RouteInfo = await res.json();
-    return routeData;
-    console.log("route distance:");
-    console.log(routeData.distance);
-    console.log(routeData.coords);
+      return new Promise<void>(async (resolve) => {
+          const userRouteRequest: number[] = [lat, lng, miles];
+          const res: Response = await fetch("http://localhost:4567/getRoute", {
+              method: "post",
+              body: JSON.stringify(userRouteRequest),
+              headers: {
+                  "Content-Type": "application/json; charset=UTF-8",
+                  "Access-Control-Allow-Origin": "*",
+              },
+          });
+          let route: RouteInfo = { distance: 0, coords: [] };
+          let routeData: void = await res.json().then(value => {route = value});
+          if(route.coords.length > 0) {
+              // @ts-ignore
+              setCoords(route.coords);
+              resolve();
+          }
+      })
   }
 
   /**
@@ -129,8 +133,11 @@ function MapContainer(props: MapProps) {
 
     // remove previous marker
     if (loc) {
-      loc.setMap(null);
-      console.log("remove " + loc);
+        loc.setMap(null);
+        console.log("remove " + loc);
+    }
+    if(path) {
+        path.setMap(null);
     }
 
     if (navigator.geolocation) {
@@ -143,10 +150,18 @@ function MapContainer(props: MapProps) {
 
       // draw path on the map
       loc.setMap(map);
+      if(path) {
+          path.setMap(null);
+      }
+      map.setCenter({lat, lng});
       console.log("drew " + loc);
     }
   }
 
+    /**
+     * async function that return a promise after current location
+     * has been udpated to user's actual location
+     */
   async function accessLoc() {
     return new Promise<void>((resolve) => {
       navigator.geolocation.getCurrentPosition((position) => {
