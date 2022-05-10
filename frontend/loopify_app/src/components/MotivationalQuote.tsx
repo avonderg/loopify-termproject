@@ -7,7 +7,6 @@ function MotivationalQuote() {
         // "Dead last finish is greater than did not finish, which trumps did not start."
 
     const [quotes, setQuotes] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
 
 
     useEffect(() => {
