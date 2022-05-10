@@ -14,11 +14,16 @@ public class RouteFinder {
   Node start;
   NodeGrid nodeGrid;
   double distance;
+  double pathDistance;
+
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
     this.nodeGrid = new NodeGrid(startLat, startLong, distance, nodeNum);
     this.start = nodeGrid.getStartNode();
+  }
+  public double getPathDistance(){
+    return pathDistance;
   }
   public List<Node> findRoute(){
     List<Node> route = new ArrayList<>();
@@ -40,6 +45,7 @@ public class RouteFinder {
           closestDist = dist;
           pathNode1 = node1;
           pathNode2 = node2;
+          pathDistance = dist;
         }
       }
     }
