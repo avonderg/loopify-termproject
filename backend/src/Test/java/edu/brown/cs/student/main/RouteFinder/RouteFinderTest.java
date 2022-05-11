@@ -24,16 +24,16 @@ public class RouteFinderTest {
     }
     @Test
     public void routeTest20mile(){
-        RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 20);
+        RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 22);
         routeFinder.findRoute();
-        Assert.assertTrue(19 < routeFinder.getPathDistance() && routeFinder.getPathDistance() < 20);
+        System.out.println(routeFinder.getPathDistance());
+        Assert.assertTrue(20 < routeFinder.getPathDistance() && routeFinder.getPathDistance() < 24);
     }
     @Test
     public void multiple1mileRoutes() {
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 1);
         List<Node> route1 = routeFinder.findRoute();
         double dist1 = routeFinder.getPathDistance();
-        System.out.println(dist1);
         List<Node> route2 = routeFinder.findRoute();
         double dist2 = routeFinder.getPathDistance();
         List<Node> route3 = routeFinder.findRoute();
