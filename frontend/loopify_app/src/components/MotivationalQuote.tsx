@@ -5,7 +5,6 @@ function MotivationalQuote() {
 
     const [quote, setQuote] = useState("");
 
-
     useEffect(() => {
         getQuotes();
     }, []);

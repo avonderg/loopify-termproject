@@ -3,20 +3,12 @@ import "./MapContainer.css";
 
 //https://developers.google.com/maps/documentation/javascript/react-map
 
-interface MapProps {
-  lat: number;
-  lng: number;
-  zoom: number;
-  miles: number;
-  pathCoords: { lat: number; lng: number }[];
-}
-
 type RouteInfo = {
   distance: number;
   coords: google.maps.LatLng[];
 };
 
-function MapContainer(props: MapProps) {
+function MapContainer() {
   const ref = React.useRef<HTMLDivElement>(null);
 
   // @ts-ignore
@@ -26,8 +18,6 @@ function MapContainer(props: MapProps) {
   const [lat, setLat] = useState(41.8268);
   const [lng, setLng] = useState(-71.4025);
   const [dist, setDist] = useState(0);
-
-  const apiKey = process.env.LOOPIFY_APP_KEY || "";
 
   let [path, setPath] = useState<google.maps.Polyline>(new google.maps.Polyline({
     path: [], //route.coords,
@@ -163,7 +153,7 @@ function MapContainer(props: MapProps) {
   }
 
   return (
-      <div id="map container">
+      <div className="MapContainer">
         <label> base: </label>
         <button
             onClick={getCurLoc}
@@ -191,7 +181,7 @@ function MapContainer(props: MapProps) {
             style={{ height: "400px", width: "600px", margin: "30px auto" }}
             ref={ref}
         ></div>
-        <p> {Math.round(100 * dist) / 100} miles </p>
+        <p id="distance"> {Math.round(100 * dist) / 100} miles </p>
       </div>
   );
 }
