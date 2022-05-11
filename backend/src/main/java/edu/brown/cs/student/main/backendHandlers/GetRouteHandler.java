@@ -2,8 +2,11 @@ package edu.brown.cs.student.main.backendHandlers;
 
 import com.google.gson.Gson;
 import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
+import edu.brown.cs.student.main.databaseaccessor.RouteInfo;
+import edu.brown.cs.student.main.routefindermaps.Node;
 import edu.brown.cs.student.main.routefindermaps.RouteFinder;
 import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
+import org.json.JSONArray;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -30,16 +33,23 @@ public class GetRouteHandler implements Route {
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
-    JSONObject data = new JSONObject(request.body());
-    JSONObject runDataJSON = data.getJSONObject("userConditions");
-    List<String>
-        userRunData = GSON.fromJson(runDataJSON.toString(), ArrayList.class);
+    JSONArray data = new JSONArray(request.body());
+//    JSONArray runDataJSON = data.getJSONArray("userRouteRequest");
+    List<Double>
+        userRunData = GSON.fromJson(String.valueOf(data), ArrayList.class);
+    System.out.println(userRunData);
 
-    RouteFinder routeFinder = new RouteFinder(Double.parseDouble(userRunData.get(0)),
-        Double.parseDouble(userRunData.get(1)), Double.parseDouble(userRunData.get(2)));
 
-    return this.GSON.toJson(
-        new RoutePointsGenerator().getRoutePoints(routeFinder.findRoute()));
 
+    //userRunData:
+    //index 0: start location latitude
+    //index 1: start location longitude
+    //index 2: distance to run
+    RouteFinder routeFinder = new RouteFinder(userRunData.get(0),
+        userRunData.get(1), userRunData.get(2));
+    List<Node> route = routeFinder.findRoute();
+    RouteInfo routeInfo = new RouteInfo(routeFinder.getPathDistance(), new RoutePointsGenerator().getRoutePoints(route));
+
+    return this.GSON.toJson(routeInfo);
   }
 }

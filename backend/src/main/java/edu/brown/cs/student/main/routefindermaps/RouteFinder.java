@@ -18,6 +18,7 @@ public class RouteFinder {
   double distance;
   double pathDistance;
   Set<Integer> seenNodePairs = new HashSet<>(); // a node pair (i,j) will be represented as 25*i + j
+
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
@@ -25,8 +26,9 @@ public class RouteFinder {
     this.start = nodeGrid.getStartNode();
   }
   public double getPathDistance(){
-    return pathDistance;
+    return this.pathDistance;
   }
+
   public List<Node> findRoute(){
     List<Node> route = new ArrayList<>();
     List<Node> nodes = nodeGrid.getNodes();
@@ -45,8 +47,8 @@ public class RouteFinder {
           continue;
         }
         double dist = nodeGrid.travelDistance(start, node1)
-                + nodeGrid.travelDistance(node1, node2)
-                + nodeGrid.travelDistance(node2, start);
+            + nodeGrid.travelDistance(node1, node2)
+            + nodeGrid.travelDistance(node2, start);
         if (closestDist == 0 || Math.abs(distance - closestDist) >= Math.abs(distance - dist)){
           closestDist = dist;
           pathNode1 = node1;
@@ -55,9 +57,6 @@ public class RouteFinder {
         }
       }
     }
-    System.out.println(pathNode1.getId());
-    System.out.println(pathNode2.getId());
-    System.out.println("=======");
     seenNodePairs.add(25*pathNode1.getId() + pathNode2.getId());
     route.add(start);
     route.add(pathNode1);

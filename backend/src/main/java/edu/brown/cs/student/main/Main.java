@@ -43,12 +43,12 @@ public final class Main {
       runSparkServer((int) options.valueOf("port"));
     }
 
-    Repl myRepl = new Repl();
-    try {
-      myRepl.setUpRepl();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+//    Repl myRepl = new Repl();
+//    try {
+//      myRepl.setUpRepl();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
 
   }
 
