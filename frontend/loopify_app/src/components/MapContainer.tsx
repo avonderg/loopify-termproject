@@ -22,7 +22,7 @@ function MapContainer(props: MapProps) {
   // @ts-ignore
   const [map, setMap] = React.useState<google.maps.Map>(null);
   const [miles, setMiles] = useState(0);
-  const [zoom, setZoom] = useState(14.6);
+  const [zoom, setZoom] = useState(15);
   const [lat, setLat] = useState(41.8268);
   const [lng, setLng] = useState(-71.4025);
   const [dist, setDist] = useState(0);
@@ -61,7 +61,7 @@ function MapContainer(props: MapProps) {
 
     // reset mileage and zoom value
     setMiles(+miles);
-    setZoom(15 - 0.4 * +miles);
+    setZoom(15 - (0.5 * +miles));
 
     // reset zoom level of map
     map.setZoom(zoom);
@@ -191,7 +191,7 @@ function MapContainer(props: MapProps) {
             style={{ height: "400px", width: "600px", margin: "30px auto" }}
             ref={ref}
         ></div>
-        <p> route distance: {Math.round(100 * dist) / 100} miles </p>
+        <p> {Math.round(100 * dist) / 100} miles </p>
       </div>
   );
 }
