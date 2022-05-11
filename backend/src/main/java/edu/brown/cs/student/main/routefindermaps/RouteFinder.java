@@ -2,7 +2,9 @@ package edu.brown.cs.student.main.routefindermaps;
 import com.google.maps.GeoApiContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,7 +17,7 @@ public class RouteFinder {
   NodeGrid nodeGrid;
   double distance;
   double pathDistance;
-
+  Set<Integer> seenNodePairs = new HashSet<>(); // a node pair (i,j) will be represented as 25*i + j
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
@@ -35,9 +37,13 @@ public class RouteFinder {
     Node pathNode2 = start;
     for (int i = 0; i < nodes.size(); i++){
       node1 = nodes.get(i);
+      int id1 = node1.getId();
       for (int j = 0; j < nodes.size(); j++){
         node2 = nodes.get(j);
-        if (i == j || i == start.getId() || j == start.getId()) continue;
+        int id2 = node2.getId();
+        if (i == j || id1 == start.getId() || id2 == start.getId() || seenNodePairs.contains(25*id1 + id2)){
+          continue;
+        }
         double dist = nodeGrid.travelDistance(start, node1)
                 + nodeGrid.travelDistance(node1, node2)
                 + nodeGrid.travelDistance(node2, start);
@@ -49,6 +55,10 @@ public class RouteFinder {
         }
       }
     }
+    System.out.println(pathNode1.getId());
+    System.out.println(pathNode2.getId());
+    System.out.println("=======");
+    seenNodePairs.add(25*pathNode1.getId() + pathNode2.getId());
     route.add(start);
     route.add(pathNode1);
     route.add(pathNode2);
