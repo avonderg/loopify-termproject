@@ -8,6 +8,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tests the JSON Parser class.
+ */
 public class JsonParserTest {
 
   /**
@@ -28,9 +31,4 @@ public class JsonParserTest {
     System.out.println(nodeList.get(0));
 
   }
-
-  @Test
-  public void testAPIResponseParser() {
-  }
-
 }

@@ -8,20 +8,33 @@ import org.junit.Test;
 
 import java.util.List;
 
-
+/**
+ * Testing the route finder class.
+ */
 public class RouteFinderTest {
+    /**
+     * Tests that a route can be found for a route of distance 1 mile.
+     */
     @Test
     public void routeTest1mile() {
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 1);
         List<Node> route = routeFinder.findRoute();
         Assert.assertEquals(4, route.size());
     }
+
+    /**
+     * Tests that a route can be found for a route of distance 5 miles.
+     */
     @Test
     public void routeTest5mile() {
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 5);
         routeFinder.findRoute();
         Assert.assertTrue(4.5 < routeFinder.getPathDistance() && routeFinder.getPathDistance() < 5.5);
     }
+
+    /**
+     * Tests that a route can be found for a route of distance 20 miles.
+     */
     @Test
     public void routeTest20mile(){
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 22);
@@ -29,6 +42,10 @@ public class RouteFinderTest {
         System.out.println(routeFinder.getPathDistance());
         Assert.assertTrue(20 < routeFinder.getPathDistance() && routeFinder.getPathDistance() < 24);
     }
+
+    /**
+     * Tests that multiple different 1 mile routes can be generated
+     */
     @Test
     public void multiple1mileRoutes() {
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 1);

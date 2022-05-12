@@ -36,6 +36,14 @@ public class DistanceMatrixGenerator {
     this.destinations = destinations;
   }
 
+  /**
+   * Since the distance matrix can only take in 10 origins and destinations, this method
+   * calls the API multiple times in order to generate the desired 625 distances.
+   * @return - list of lists containing distances.
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ApiException
+   */
   public List<List<Double>> generateDistances25() throws IOException, InterruptedException, ApiException {
     assert origins.length == 25;
     assert destinations.length == 25;

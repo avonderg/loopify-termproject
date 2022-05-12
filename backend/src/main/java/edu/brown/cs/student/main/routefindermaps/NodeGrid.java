@@ -16,9 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class representing a graph of nodes.
- *
- * source: https://www.softwaretestinghelp.com/java-graph-tutorial/
+ * Class representing a grid of nodes.
  */
 public class NodeGrid {
   private GeoApiContext context = new GeoApiContext.Builder()
@@ -32,10 +30,10 @@ public class NodeGrid {
   private int nodeNum = 5;
 
   /**
-   * Constructor
-   * @param startLat
-   * @param startLon
-   * @param distance
+   * Constructor for the node grid class.
+   * @param startLat - start latitude
+   * @param startLon - start longitude
+   * @param distance - distance
    */
   public NodeGrid(double startLat, double startLon, double distance, int nodeNum) {
     // For now, we will only deal with 25 nodes
@@ -58,27 +56,24 @@ public class NodeGrid {
   }
 
   /**
-   * Gets the starting node
+   * Gets the starting node.
    */
   public Node getStartNode(){
     return nodes.get(nodes.size()/2);
   }
 
   /**
-   * Calculate travel distances
+   * Calculate travel distances..
    */
   public void calculateDistances() throws IOException, InterruptedException, ApiException {
-    // TODO: Jose generate 25 start and dest nodes
     int totalNum = nodeNum*nodeNum;
     String[] locations = new String[totalNum];
     for (int i = 0; i < totalNum; i++){
       locations[i] = (nodes.get(i).getLocation());
     }
-    // TODO: Jose generate 25 start and dest nodes to be passed into this constructor
     DistanceMatrixGenerator dist = new DistanceMatrixGenerator(locations,locations);
     nodeDistances = dist.generateDistances25(); // generates distances
   }
-
 
   /**
    * Getter method for the nodes of a node grid.
@@ -88,13 +83,6 @@ public class NodeGrid {
     return nodes;
   }
 
-  /**
-   * Getter method for the node distances.
-   * @return nodeDistances
-   */
-  public List<List<Double>> getNodeDistances() {
-    return nodeDistances;
-  }
 
   /**
    * Calculates the travel distances between two different nodes.

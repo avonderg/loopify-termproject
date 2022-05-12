@@ -9,8 +9,17 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Tester class for the distance matrix.
+ */
 public class DistanceMatrixTest {
 
+  /**
+   * Tests that the distance matrix API is correctly outputting a matrix.
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ApiException
+   */
   @Test
   public void testCalculateDistances() throws IOException, InterruptedException, ApiException {
     String[] origins = {"120 W Randolph St, Chicago, IL 60602, USA", "204 S Clark St, Chicago, IL 60604, USA", "629 N Desplaines St, Chicago, IL 60661, USA"};
