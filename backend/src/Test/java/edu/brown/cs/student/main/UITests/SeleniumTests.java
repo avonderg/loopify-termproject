@@ -110,7 +110,7 @@ public class SeleniumTests {
         locationButton.click();
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(30)); // waits
         locationButton.click();
-        assert(curLen < map.findElements(By.className("gmnoprint")).size());
+        assertEquals(curLen, map.findElements(By.className("gmnoprint")).size());
         curLen = map.findElements(By.className("gmnoprint")).size();
 
         // tests that route is drawn on map
@@ -123,7 +123,7 @@ public class SeleniumTests {
         assertEquals(
                 Double.parseDouble(inputMiles.getAttribute("value")),
                 Double.parseDouble(mapContainer.findElement(By.id("distance")).getText().split(" ")[0]),
-                1.5);
+                2);
     }
 
 
