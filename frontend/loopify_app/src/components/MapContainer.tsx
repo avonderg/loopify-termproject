@@ -144,8 +144,12 @@ function MapContainer() {
     return new Promise<void>((resolve) => {
       navigator.geolocation.getCurrentPosition((position) => {
         setLat(position.coords.latitude);
-        setLng(position.coords.longitude);
-      });
+        setLng(position.coords.longitude);},
+          (error) => console.log("location denied"),
+          {enableHighAccuracy: false,
+            timeout: 5000,
+            maximumAge: 0}
+      );
       if (lat != 41.82868 && lng != -71.4025) {
         resolve();
       }
