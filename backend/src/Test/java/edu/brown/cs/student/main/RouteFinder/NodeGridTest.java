@@ -77,7 +77,10 @@ public class NodeGridTest {
         double firstLon = firstNode.getLongitude();
         double lastLat = lastNode.getLatitude();
         double lastLon = lastNode.getLongitude();
-        Assert.assertEquals(20, 69*(lastLat - firstLat), 1e-6);
-        Assert.assertEquals(20, 69*Math.cos(startLat*Math.PI/180)*(lastLon - firstLon), 1e-6);
+        double latD = 69*(lastLat - firstLat);
+        double lonD = 69*Math.cos(startLat*Math.PI/180)*(lastLon - firstLon);
+        Assert.assertEquals(20, latD, 1e-6);
+        Assert.assertEquals(20, lonD, 1e-6);
+
     }
 }

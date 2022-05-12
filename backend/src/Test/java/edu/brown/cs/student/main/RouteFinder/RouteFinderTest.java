@@ -39,7 +39,6 @@ public class RouteFinderTest {
     public void routeTest20mile(){
         RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 22);
         routeFinder.findRoute();
-        System.out.println(routeFinder.getPathDistance());
         Assert.assertTrue(20 < routeFinder.getPathDistance() && routeFinder.getPathDistance() < 24);
     }
 
@@ -59,13 +58,53 @@ public class RouteFinderTest {
         double dist4 = routeFinder.getPathDistance();
         List<Node> route5 = routeFinder.findRoute();
         double dist5 = routeFinder.getPathDistance();
+        Assert.assertTrue(dist1 < dist2);
+        Assert.assertTrue(dist2 < dist3);
+        Assert.assertTrue(dist3 < dist4);
+        Assert.assertTrue(dist4 < dist5);
+    }
 
-        Assert.assertTrue(route1 != route2);
-        System.out.println(dist1);
-        System.out.println(dist2);
-        System.out.println(dist3);
-        System.out.println(dist4);
-        System.out.println(dist5);
+    /**
+     * Tests that multiple different 5 mile routes can be generated
+     */
+    @Test
+    public void multiple5mileRoutes() {
+        RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 5);
+        List<Node> route1 = routeFinder.findRoute();
+        double dist1 = routeFinder.getPathDistance();
+        List<Node> route2 = routeFinder.findRoute();
+        double dist2 = routeFinder.getPathDistance();
+        List<Node> route3 = routeFinder.findRoute();
+        double dist3 = routeFinder.getPathDistance();
+        List<Node> route4 = routeFinder.findRoute();
+        double dist4 = routeFinder.getPathDistance();
+        List<Node> route5 = routeFinder.findRoute();
+        double dist5 = routeFinder.getPathDistance();
+        Assert.assertTrue(dist1 < dist2);
+        Assert.assertTrue(dist2 < dist3);
+        Assert.assertTrue(dist3 < dist4);
+        Assert.assertTrue(dist4 < dist5);
+    }
 
+    /**
+     * Tests that multiple different 10 mile routes can be generated
+     */
+    @Test
+    public void multiple10mileRoutes() {
+        RouteFinder routeFinder = new RouteFinder(41.82690997456079, -71.40016570863611, 10);
+        List<Node> route1 = routeFinder.findRoute();
+        double dist1 = routeFinder.getPathDistance();
+        List<Node> route2 = routeFinder.findRoute();
+        double dist2 = routeFinder.getPathDistance();
+        List<Node> route3 = routeFinder.findRoute();
+        double dist3 = routeFinder.getPathDistance();
+        List<Node> route4 = routeFinder.findRoute();
+        double dist4 = routeFinder.getPathDistance();
+        List<Node> route5 = routeFinder.findRoute();
+        double dist5 = routeFinder.getPathDistance();
+        Assert.assertTrue(dist1 < dist2);
+        Assert.assertTrue(dist2 < dist3);
+        Assert.assertTrue(dist3 < dist4);
+        Assert.assertTrue(dist4 < dist5);
     }
 }
