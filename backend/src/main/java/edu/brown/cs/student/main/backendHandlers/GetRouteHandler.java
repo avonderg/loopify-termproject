@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 public class GetRouteHandler implements Route {
   private static final Gson GSON = new Gson();
+  private static RouteFinder routeFinder = new RouteFinder(0, 0, 0);
 
   /**
    * Handle method overriden from the route interface. This handle receives the
@@ -39,14 +40,19 @@ public class GetRouteHandler implements Route {
         userRunData = GSON.fromJson(String.valueOf(data), ArrayList.class);
     System.out.println(userRunData);
 
-
-
     //userRunData:
     //index 0: start location latitude
     //index 1: start location longitude
     //index 2: distance to run
-    RouteFinder routeFinder = new RouteFinder(userRunData.get(0),
-        userRunData.get(1), userRunData.get(2));
+    double startLat = userRunData.get(0);
+    double startLon = userRunData.get(1);
+    double distance = userRunData.get(2);
+    if (routeFinder.getDistance() != distance ||
+            routeFinder.getStart().getLatitude() != startLat ||
+            routeFinder.getStart().getLongitude() != startLon){
+      routeFinder = new RouteFinder(userRunData.get(0),
+              userRunData.get(1), userRunData.get(2));
+    }
     List<Node> route = routeFinder.findRoute();
     RouteInfo routeInfo = new RouteInfo(routeFinder.getPathDistance(), new RoutePointsGenerator().getRoutePoints(route));
 

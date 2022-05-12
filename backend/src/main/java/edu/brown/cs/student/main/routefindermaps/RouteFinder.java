@@ -13,22 +13,53 @@ import java.util.Set;
  */
 public class RouteFinder {
   private final int nodeNum = 5; // number of nodes per row / column
-  Node start;
-  NodeGrid nodeGrid;
-  double distance;
-  double pathDistance;
-  Set<Integer> seenNodePairs = new HashSet<>(); // a node pair (i,j) will be represented as 25*i + j
+  private Node start;
+  private NodeGrid nodeGrid;
+  private double distance;
+  private double pathDistance;
+  private Set<Integer> seenNodePairs = new HashSet<>(); // a node pair (i,j) will be represented as 25*i + j
 
+  /**
+   * RouteFinder Constructor
+   * @param startLat
+   * @param startLong
+   * @param distance
+   */
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
     this.nodeGrid = new NodeGrid(startLat, startLong, distance, nodeNum);
     this.start = nodeGrid.getStartNode();
   }
+
+  /**
+   * Gets the starting Node
+   * @return starting node
+   */
+  public Node getStart() {
+    return start;
+  }
+
+  /**
+   * distance getter
+   * @return desired route distance
+   */
+  public double getDistance(){
+    return this.distance;
+  }
+
+  /**
+   * pathDistance getter
+   * @return distance of the last path generated
+   */
   public double getPathDistance(){
     return this.pathDistance;
   }
 
+  /**
+   * Algorithm that finds a route close to the desired distance
+   * @return ordered list of nodes that represent the route
+   */
   public List<Node> findRoute(){
     List<Node> route = new ArrayList<>();
     List<Node> nodes = nodeGrid.getNodes();
