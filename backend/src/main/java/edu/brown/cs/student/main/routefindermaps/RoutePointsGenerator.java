@@ -8,6 +8,9 @@ import com.google.maps.model.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class generating route points.
+ */
 public class RoutePointsGenerator {
 
   /**

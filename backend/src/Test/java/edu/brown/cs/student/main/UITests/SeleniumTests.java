@@ -17,6 +17,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tester class for the selenium tests.
+ */
 public class SeleniumTests {
 
     static String frontendPath;

@@ -19,12 +19,23 @@ public class RouteFinder {
   double pathDistance;
   Set<Integer> seenNodePairs = new HashSet<>(); // a node pair (i,j) will be represented as 25*i + j
 
+  /**
+   * Constructor for the Route Finder class.
+   * @param startLat - start lat
+   * @param startLong - start long
+   * @param distance - distance
+   */
   public RouteFinder(double startLat, double startLong, double distance) {
     this.distance = distance;
     //this.start = new Node(startLat, startLong, nodeNum/2, nodeNum/2);
     this.nodeGrid = new NodeGrid(startLat, startLong, distance, nodeNum);
     this.start = nodeGrid.getStartNode();
   }
+
+  /**
+   * Getter for path distance.
+   * @return - path distance.
+   */
   public double getPathDistance(){
     return this.pathDistance;
   }

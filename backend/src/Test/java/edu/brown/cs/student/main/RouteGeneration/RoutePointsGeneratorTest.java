@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Tester class for RoutePointsGenerator.
+ */
 public class RoutePointsGeneratorTest {
 
   /**
