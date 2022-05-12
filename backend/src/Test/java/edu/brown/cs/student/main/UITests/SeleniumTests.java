@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.UITests;
 
 import edu.brown.cs.student.main.backendHandlers.*;
-import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -17,12 +16,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Tester class for the selenium tests.
- */
 public class SeleniumTests {
 
-    static String frontendPath;
     static ChromeDriver chrome;
     static int backendPort = 4567;
 
@@ -111,13 +106,14 @@ public class SeleniumTests {
         List<WebElement> mapItems = map.findElements(By.className("gmnoprint"));
         int curLen = mapItems.size();
 
-        // tests that marker is drawn on the map
+        // tests that marker are drawn on the map
         locationButton.click();
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(30)); // waits
         locationButton.click();
         assert(curLen < map.findElements(By.className("gmnoprint")).size());
         curLen = map.findElements(By.className("gmnoprint")).size();
 
+        // tests that route is drawn on map
         inputMiles.sendKeys("2");
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(1)); // waits
         goButton.click();
