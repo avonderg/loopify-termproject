@@ -1,0 +1,19 @@
+body {
+    font-family: 'sans-serif';
+    font-size: 35px;
+    text-align: center;
+  }
+  
+  path {
+    fill: #ffffff;
+    text-align: center;
+  }
+  
+  text {
+    fill: #47746a;
+    font-family: TS-Block, sans-serif;
+    font-size: 90px;
+    font-weight: bolder;
+    letter-spacing: 200px;
+    transform: scale(1,.9);
+  }

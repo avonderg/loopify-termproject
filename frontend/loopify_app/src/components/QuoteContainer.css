@@ -9,7 +9,7 @@
 
 .QuoteContainer h2 {
   color: #fff;
-  font-family: Geneva;
+  font-family: Poppins-regular;
   font-size: 3rem;
   font-weight: lighter;
   transform: scale(1,.9);
@@ -17,7 +17,7 @@
 
 .QuoteContainer p {
   color: #ebf37b;
-  font-family: Geneva;
+  font-family: Poppins-regular;
   font-size: 1.5rem;
   font-weight: lighter;
   transform: scale(1,.9);
@@ -32,7 +32,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-family: Geneva;
+  font-family: Poppins-regular;
   font-size: 16px;
   font-weight: bolder;
   margin: 3px 2px;

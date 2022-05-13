@@ -3,14 +3,15 @@
 }
 
 .RouteContainer h2 {
-  font-family: Geneva;
-  font-size: 50px;
+  color: #373737;
+  font-family: Poppins-bold;
+  font-size: 80px;
   transform: scale(1,.9);
   margin: 0px;
 }
 
 .RouteContainer label {
-  font-family: Geneva;
+  font-family: Poppins-regular;
   font-size: 16px;
   transform: scale(1,.9);
   font-weight: lighter;
@@ -24,7 +25,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-family: Geneva;
+  font-family: Poppins-regular;
   font-size: 16px;
   font-weight: lighter;
   margin: 4px 2px;
