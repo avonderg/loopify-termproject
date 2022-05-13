@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.databaseaccessor;
+package edu.brown.cs.student.main.backendHandlers;
 
 import com.google.maps.model.LatLng;
 import java.util.List;

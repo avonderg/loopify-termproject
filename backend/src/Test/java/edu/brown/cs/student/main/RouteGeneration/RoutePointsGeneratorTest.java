@@ -1,16 +1,12 @@
 package edu.brown.cs.student.main.RouteGeneration;
-import com.google.maps.model.EncodedPolyline;
-import com.google.maps.model.GeocodedWaypoint;
 import com.google.maps.model.LatLng;
 import edu.brown.cs.student.main.routefindermaps.Node;
 import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
 
-import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +36,7 @@ public class RoutePointsGeneratorTest {
   }
 
   /**
-   * Tests that the getWaypoints method of the RoutePointsGenerator correctly
+   * Tests that the getRoutePoints method of the RoutePointsGenerator correctly
    * constructs an array of LatLng objects.
    */
   @Test
@@ -50,10 +46,6 @@ public class RoutePointsGeneratorTest {
     Node node2 = new Node(41.835112494074544, -71.40206663721735);
     Node node3 = new Node(41.8298364308529, -71.3875183356717);
     List<Node> nodeList = Arrays.asList(node0, node1, node2, node3, node0);
-
-//    LatLng point1 = new LatLng(31.25, 32.50);
-//    LatLng point2 = new LatLng(31.19, 32.47);
-//    LatLng point3 = new LatLng(31.25, 32.50);
 
     List<LatLng> decodedPolyline = new RoutePointsGenerator().getRoutePoints(nodeList);
 

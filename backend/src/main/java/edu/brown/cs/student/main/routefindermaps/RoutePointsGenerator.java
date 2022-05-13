@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Class generating route points.
+ * Class generating nodes to be used to draw the path on the frontend. Given the
+ * list of nodes through which our path was created, this class relies on the
+ * Google Maps API to generate a bunch of nodes through which a marker on the
+ * frontend can draw the path.
  */
 public class RoutePointsGenerator {
 
@@ -53,7 +56,8 @@ public class RoutePointsGenerator {
   /**
    * This method, given a list of nodes through which our algorithm has created
    * a path, creates an array of LatLng points that can be passed into the
-   * Google Maps distance API
+   * Google Maps distance API to ouptut latitute and longitude coords that we
+   * can use to draw the map on the frontend.
    * @param nodeList
    * @return
    */

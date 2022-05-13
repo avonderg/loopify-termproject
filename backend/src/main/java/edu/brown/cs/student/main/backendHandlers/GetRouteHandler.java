@@ -1,8 +1,6 @@
 package edu.brown.cs.student.main.backendHandlers;
 
 import com.google.gson.Gson;
-import edu.brown.cs.student.main.databaseaccessor.DatabaseAccessor;
-import edu.brown.cs.student.main.databaseaccessor.RouteInfo;
 import edu.brown.cs.student.main.routefindermaps.Node;
 import edu.brown.cs.student.main.routefindermaps.RouteFinder;
 import edu.brown.cs.student.main.routefindermaps.RoutePointsGenerator;
@@ -11,14 +9,16 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONObject;
 
+/**
+ * This class handles accepting the user request for a route of a certain distance
+ * from a user's current location, calls on appropriate classes and methods
+ * throughout the backend, and then sends the list of Lat/Lng coordinates that
+ * can be used to draw the path to the frontend.
+ */
 public class GetRouteHandler implements Route {
   private static final Gson GSON = new Gson();
   private static RouteFinder routeFinder = new RouteFinder(0, 0, 0);

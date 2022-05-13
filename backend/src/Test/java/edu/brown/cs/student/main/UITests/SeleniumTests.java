@@ -169,12 +169,7 @@ public class SeleniumTests {
         });
         Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
         // Put Routes Here
-        // Spark.get("/table", new TableHandler());
-        Spark.post("/table", new TableHandler());
-        Spark.get("/tableNames", new TableNameHandler());
-        Spark.post("/insert", new InsertHandler());
-        Spark.post("/update", new UpdateHandler());
-        Spark.post("/delete", new DeleteHandler());
+        Spark.post("/getRoute", new GetRouteHandler());
         Spark.init();
     }
 }
