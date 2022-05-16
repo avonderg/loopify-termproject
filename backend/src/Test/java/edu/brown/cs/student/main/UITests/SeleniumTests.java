@@ -65,6 +65,16 @@ public class SeleniumTests {
         chrome.manage().timeouts().implicitlyWait(Duration.ofMillis(1000)); // waits
         assert(chrome.findElement(By.id("map")).isDisplayed());
     }
+    
+    /**
+     * Test that motivational quote is not empty
+     */
+    @Test
+    public void testMotivationalQuote(){
+        WebElement motivationalQuote = chrome.findElement(By.className("MotivationalQuote"));
+        assert(motivationalQuote.findElement(By.tagName("h1")).getText().length() > 0);
+    }
+
 
     /**
      * Check that title is correct.
