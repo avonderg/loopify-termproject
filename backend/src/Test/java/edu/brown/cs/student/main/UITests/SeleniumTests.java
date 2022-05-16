@@ -142,10 +142,10 @@ public class SeleniumTests {
      */
     @Test
     public void testInput(){
-        // tests that numbers can be inputted
+        // tests that negative numbers cannot be inputted
         WebElement inputMiles = chrome.findElement(By.className("MapContainer")).findElement(By.tagName("input"));
-        inputMiles.sendKeys("5");
-        assertEquals("5", inputMiles.getAttribute("value"));
+        inputMiles.sendKeys("-1");
+        assertEquals("", inputMiles.getAttribute("value"));
 
         // tests that numbers with decimals can be inputted
         inputMiles.clear();
