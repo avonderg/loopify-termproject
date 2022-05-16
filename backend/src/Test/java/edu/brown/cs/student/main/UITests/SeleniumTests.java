@@ -65,7 +65,7 @@ public class SeleniumTests {
         chrome.manage().timeouts().implicitlyWait(Duration.ofMillis(1000)); // waits
         assert(chrome.findElement(By.id("map")).isDisplayed());
     }
-    
+
     /**
      * Test that motivational quote is not empty
      */
@@ -74,7 +74,6 @@ public class SeleniumTests {
         WebElement motivationalQuote = chrome.findElement(By.className("MotivationalQuote"));
         assert(motivationalQuote.findElement(By.tagName("h1")).getText().length() > 0);
     }
-
 
     /**
      * Check that title is correct.
@@ -120,7 +119,7 @@ public class SeleniumTests {
         locationButton.click();
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(30)); // waits
         locationButton.click();
-        assertEquals(curLen, map.findElements(By.className("gmnoprint")).size());
+        assert(curLen <= map.findElements(By.className("gmnoprint")).size());
         curLen = map.findElements(By.className("gmnoprint")).size();
 
         // tests that route is drawn on map
@@ -128,8 +127,7 @@ public class SeleniumTests {
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(1)); // waits
         goButton.click();
         chrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(30)); // waits
-        // polyline cannot be drawn because of backend
-        assertEquals(curLen, map.findElements(By.className("gmnoprint")).size());
+        assert(curLen <= map.findElements(By.className("gmnoprint")).size());
         assertEquals(
                 Double.parseDouble(inputMiles.getAttribute("value")),
                 Double.parseDouble(mapContainer.findElement(By.id("distance")).getText().split(" ")[0]),
