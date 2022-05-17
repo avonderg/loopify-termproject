@@ -1,6 +1,7 @@
 package edu.brown.cs.student.main.routefindermaps;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
+import edu.brown.cs.student.main.Parsing.ClientAuth;
 
 /**
  * Class representing a node within a map.
@@ -24,7 +25,7 @@ public class Node {
     this.latitude = latitude;
     this.longitude = longitude;
     context = new GeoApiContext.Builder()
-            .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
+            .apiKey(ClientAuth.getApiKey())
             .build();
 
   }

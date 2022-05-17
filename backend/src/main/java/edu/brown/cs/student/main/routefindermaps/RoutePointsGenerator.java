@@ -4,6 +4,7 @@ import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
+import edu.brown.cs.student.main.Parsing.ClientAuth;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +31,7 @@ public class RoutePointsGenerator {
    */
   public List<LatLng> getRoutePoints(List<Node> nodeList) {
     GeoApiContext context = new GeoApiContext.Builder()
-        .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
+        .apiKey(ClientAuth.getApiKey())
         .build();
     DirectionsResult result = null;
     try {

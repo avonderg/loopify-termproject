@@ -7,6 +7,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
+import edu.brown.cs.student.main.Parsing.ClientAuth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class DistanceMatrixGenerator {
   private GeoApiContext context = new GeoApiContext.Builder()
-          .apiKey("AIzaSyAbGfdrfwUDK_1YXGP8b7NQZbNh3AKRH7o")
+          .apiKey(ClientAuth.getApiKey())
           .build();
   // origins and destinations
   private String[] origins;
